@@ -1,0 +1,8 @@
+
+<div ng-include="'topbar.html'"></div>
+<ul class="col-md-4 col-md-offset-4">
+  <h3>Survey</h3><i>How you would rate your well-being in the following aspects, on a scale from 1 to 100?</i>
+  <li ng-repeat="aspect in aspects">
+    <div slider="slider" name="{{ aspect }}"></div>
+  </li><br/><a ng-click="loadTradeOff()" class="btn btn-default pull-right">next</a>
+</ul>
