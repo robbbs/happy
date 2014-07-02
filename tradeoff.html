@@ -3,7 +3,7 @@
   <div ng-include="'topbar.html'" class="topbar col-md-6 col-md-offset-3"></div>
 </div>
 <div class="col-md-2">
-  <table class="table">
+  <table ng-show="settings.devmode" class="table">
     <thead>
       <tr>
         <th>Aspect</th>
@@ -24,19 +24,24 @@
 </div>
 <div class="col-md-6 col-md-offset-1">
   <div class="panel panel-default">
-    <div class="panel-body">Now, imagine you are making a personal decision, and that you face a choice between two options: Option 1 and Option 2. The two options are predicted to have different effects over the next four years but to have the same effects after that. The scales below show these predicted differences in the next four years: under Option 1, your rating of your health would improve by 5 points, while under Option 2, your rating of your overall happiness would improve by 5 points. (As the scales show, your rating of all other aspects would not change regardless of the option you choose.)</div>
+    <div class="panel-body">
+      Now, imagine you are making a personal decision, and that you face a choice between two options: Option 1 and Option 2. 
+      The two options are predicted to have different effects over the next four years but to have the same effects after that. 
+      The scales below show these predicted differences in the next four years:
+      under Option 1, your rating of your <b>{{ choice.numeraire.name | lowercase }} </b>would improve by <b>{{ choice.numeraire.diff }} points</b>, while under Option 2, your rating of your <b>{{ choice.comparison.name | lowercase }}</b> would improve by <b>{{ choice.comparison.diff }} points. </b>(As the scales show, your rating of all other aspects would not change regardless of the option you choose.)
+    </div>
   </div>
   <div class="choices clearfix">
     <ul class="col-md-6 choice">
       <h3>Option 1</h3>
       <li ng-repeat="aspect in aspects">
-        <div slider="slider" name="{{ aspect }}" diff="{{ left[aspect].diff }}" class="fixed"></div>
+        <div slider="slider" name="{{ aspect }}" diff="{{ left[aspect].diff }}" ng-class="{ active: left[aspect].diff }" class="fixed"></div>
       </li>
     </ul>
     <ul class="col-md-6 choice">
       <h3>Option 2</h3>
       <li ng-repeat="aspect in aspects">
-        <div slider="slider" name="{{ aspect }}" diff="{{ right[aspect].diff }}" class="fixed"></div>
+        <div slider="slider" name="{{ aspect }}" diff="{{ right[aspect].diff }}" ng-class="{ active: right[aspect].diff }" class="fixed"></div>
       </li>
     </ul>
   </div>
