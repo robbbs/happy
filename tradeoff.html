@@ -34,28 +34,19 @@
   <div class="choices clearfix">
     <ul class="col-md-6 choice">
       <h3>Option 1</h3>
-      <li ng-repeat="aspect in aspects">
+      <li ng-repeat="aspect in aspects" class="scale">
         <div slider="slider" name="{{ aspect }}" diff="{{ left[aspect].diff }}" ng-class="{ active: left[aspect].diff }" class="fixed"></div>
       </li>
     </ul>
     <ul class="col-md-6 choice">
       <h3>Option 2</h3>
-      <li ng-repeat="aspect in aspects">
+      <li ng-repeat="aspect in aspects" class="scale">
         <div slider="slider" name="{{ aspect }}" diff="{{ right[aspect].diff }}" ng-class="{ active: right[aspect].diff }" class="fixed"></div>
       </li>
     </ul>
   </div>
-  <div class="question">
-    <h4>Between these two options, which do you think you would choose?</h4>
-    <div class="col col-xs-6">
-      <div class="agree"><a ng-click="choose(-1)" class="btn btn-default">Slightly prefer Option 1</a></div>
-      <div class="agree"><a ng-click="choose(-2)" class="btn btn-default">Somewhat prefer Option 1</a></div>
-      <div class="agree"><a ng-click="choose(-3)" class="btn btn-default">Much prefer Option 1</a></div>
-    </div>
-    <div class="col col-xs-6">
-      <div class="agree"><a ng-click="choose(1)" class="btn btn-default">Slightly prefer Option 2</a></div>
-      <div class="agree"><a ng-click="choose(2)" class="btn btn-default">Somewhat prefer Option 2</a></div>
-      <div class="agree"><a ng-click="choose(3)" class="btn btn-default">Much prefer Option 2</a></div>
-    </div>
+  <div class="question"><a ng-show="prefs.degree" ng-click="prefs.next()" class="btn btn-primary pull-right">Next choice</a>
+    <h4>Between these two options, which do you prefer?</h4>
+    <div pref="pref" degree="prefs.degree" class="slide"></div>
   </div>
 </div>
