@@ -24,7 +24,7 @@
 </div>
 <div class="col-md-6 col-md-offset-1 trade">
   <div class="panel panel-default">
-    <div class="panel-body">Now, imagine you are making a personal decision between two options: Option 1 and Option 2. Each option is predicted to affect only one of the aspects you rated, as shown below. <a ng-click="further = !further">Further explanation</a>
+    <div class="panel-body">Now, imagine you are making a personal decision between two options: Option 1 and Option 2. Each option is predicted to affect only one of the aspects you rated, as shown below. <a ng-click="further = true" ng-show="!further" class="pointer">Further explanation</a><a ng-click="further = false" ng-show="further" class="pointer">Less explanation</a>
       <p ng-show="further">
         The scales below show these predicted differences in the next four years:
         under Option 1, your rating of your <b>{{ choice.numeraire.name | lowercase }} </b>would improve by <b>{{ choice.numeraire.diff }} points</b>, while under Option 2, your rating of your <b>{{ choice.comparison.name | lowercase }}</b> would improve by <b>{{ choice.comparison.diff }} points. </b>(As the scales show, your rating of all other aspects would not change regardless of the option you choose.)
