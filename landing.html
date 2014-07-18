@@ -1,6 +1,21 @@
 
-<div earth="earth" class="splash">
-  <div class="earth"></div>
-  <div ng-include="splash.url" class="welcome col-sm-4 col-sm-offset-4"></div>
+<div class="container-fluid">
+  <div class="row top">
+    <div ng-include="'topbar.html'" class="topbar col-md-6 col-md-offset-3"></div>
+  </div>
+  <div class="row">
+    <div earth="earth" class="splash">
+      <div class="earth"></div>
+    </div>
+    <div class="col-sm-3 col-sm-offset-3">
+      <div class="welcome">
+        <h5>What is a good life <i>for you? </i>Answer our questions to track your own well-being the way <i>you </i>see it.</h5>
+        <p>This website is in preliminary development stages and should be used for demonstration purposes only. Its methods are based on Benjamin, Daniel J., Ori Heffetz, Miles S. Kimball, and Nichole Szembrot (2013), <a href="http://ssrn.com/abstract=2120784" target="_blank">"Beyond Happiness and Satisfaction: Toward Well-Being Indices Based on Stated Preference.” </a>American Economic Review, forthcoming.</p>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div ng-include="'login.html'" class="welcome"></div>
+      <div ng-include="'signup.html'" class="welcome"></div>
+    </div>
+  </div>
 </div>
-<footer class="small left">This website is in preliminary development stages and should be used for demonstration purposes only. Its methods are based on Benjamin, Daniel J., Ori Heffetz, Miles S. Kimball, and Nichole Szembrot (2013), <a href="http://ssrn.com/abstract=2120784" target="_blank">"Beyond Happiness and Satisfaction: Toward Well-Being Indices Based on Stated Preference.” </a>American Economic Review, forthcoming.</footer>

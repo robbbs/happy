@@ -1,16 +1,20 @@
 
-<div class="row">
-  <div ng-include="'topbar.html'" class="topbar col-md-6 col-md-offset-3"></div>
-</div>
-<div class="col-md-6 col-md-offset-3">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="index-title">Your well-being index</h3>
-      <h5 class="index-title">Based on your own ratings of the aspects and on the relative weight you gave each aspect:</h5>
+<div class="container-fluid">
+  <div class="row top">
+    <div ng-include="'topbar.html'" class="topbar col-md-6 col-md-offset-3"></div>
+  </div>
+  <div class="row space">
+    <div class="col-md-6 col-md-offset-3">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="index-title">Your well-being index</h3>
+          <h5 class="index-title">Based on your own ratings of the aspects and on the relative weight you gave each aspect:</h5>
+        </div>
+        <div class="panel-body">
+          <plot data="data"></plot>
+        </div>
+      </div><br/>
+      <div class="alert alert-info">We hope to see you again soon! By responding to our questions on a regular basis you can track changes in your ratings of the aspects, in the relative weights you give the aspects, and in your personal well-being index.</div>
     </div>
-    <div class="panel-body">
-      <plot data="data"></plot>
-    </div>
-  </div><br/>
-  <div class="alert alert-info">We hope to see you again soon! By responding to our questions on a regular basis you can track changes in your ratings of the aspects, in the relative weights you give the aspects, and in your personal well-being index.</div>
+  </div>
 </div>
