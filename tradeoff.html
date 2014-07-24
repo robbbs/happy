@@ -42,7 +42,7 @@
     <div class="choices">
       <div class="options clearfix">
         <ul class="col-md-6">
-          <div class="option">
+          <div class="option panel panel-default">
             <h3>Option 1</h3>
             <li ng-repeat="aspect in aspects" class="scale">
               <div slider="slider" fixed="true" name="{{ aspect }}" diff="{{ left[aspect].diff }}" ng-class="{ active: left[aspect].diff || right[aspect].diff }" class="fixed"></div>
@@ -50,7 +50,7 @@
           </div>
         </ul>
         <ul class="col-md-6">
-          <div class="option">
+          <div class="option panel panel-default">
             <h3>Option 2</h3>
             <li ng-repeat="aspect in aspects" class="scale">
               <div slider="slider" fixed="true" name="{{ aspect }}" diff="{{ right[aspect].diff }}" ng-class="{ active: left[aspect].diff || right[aspect].diff }" class="fixed"></div>
@@ -62,16 +62,11 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-md-6 col-md-offset-3 pad">
+  <div class="col-md-6 col-md-offset-3">
     <div class="question panel panel-default">
       <div class="panel-body">
-        <div class="prefs"><a ng-show="prefs.degree" ng-click="prefs.next()" class="btn btn-primary pull-right">Next choice</a>
-          <h4>Between these two options, which do you prefer?</h4>
-        </div>
-        <div class="prefs">
-          <h5 class="pull-left">Much prefer Option 1</h5>
-          <h5 class="pull-right">Much prefer Option 2</h5>
-        </div>
+        <div class="prefs"><a ng-show="prefs.degree" ng-click="prefs.next()" class="btn btn-primary pull-right">Next choice</a>Between these two options, which do you prefer?</div>
+        <div class="prefs"><b class="small pull-left">Much prefer Option 1</b><b class="small pull-right">Much prefer Option 2</b></div>
         <div class="prefs">
           <label class="pref">
             <input type="radio" name="pref" ng-model="prefs.degree" value="-5"/>
