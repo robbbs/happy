@@ -1,8 +1,15 @@
 
-<div class="form-group">
-  <input type="text" name="email" placeholder="Enter your email" ng-model="login.email" class="form-control"/>
-</div>
-<div class="form-group">
-  <input type="password" name="password" placeholder="Password" ng-model="login.password" class="form-control"/>
-</div>
-<div class="auth clearfix"><a ng-click="login.submit()" class="btn dark pull-right">Login</a></div>
+<div ng-show="login.wrong === 'INVALID_EMAIL'" class="alert alert-danger">Please enter a valid email address</div>
+<div ng-show="login.wrong === 'INVALID_PASSWORD'" class="alert alert-danger">Your username or password is incorrect</div>
+<div ng-show="signup.wrong === 'in'" class="alert alert-info">Logging you in...</div>
+<form ng-submit="login.submit()">
+  <div class="form-group">
+    <input type="text" name="email" placeholder="Enter your email" ng-model="login.email" class="form-control"/>
+  </div>
+  <div class="form-group">
+    <input type="password" name="password" placeholder="Password" ng-model="login.password" class="form-control"/>
+  </div>
+  <div class="auth clearfix">
+    <input type="submit" value="Login" class="btn dark pull-right"/>
+  </div>
+</form>
