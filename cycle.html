@@ -1,0 +1,106 @@
+
+<div class="row topbar">
+  <div class="col-md-6 col-md-offset-3">
+    <div class="logo">
+      <h2 class="align-right">
+        <div class="small pull-right">β </div>What is a Good Life?
+      </h2>
+    </div>
+    <ul class="list-group menu"><a href="#/history" class="list-group-item title">{{ user.info().email || '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' }}</a><a ng-click="settings.devmode = !settings.devmode" class="list-group-item"> Dev Mode <i ng-show="settings.devmode" class="glyphicon glyphicon-ok"></i></a><a ng-show="user.info().email" ng-click="user.logout()" class="list-group-item">Sign Out</a></ul>
+  </div>
+</div>
+<div class="row space">
+  <div ng-show="choice" class="col-md-6 trade"><a ng-click="choose(choice.b.name, choice.a.name, choice.b.diff / choice.a.diff)" class="btn btn-primary pull-left">Prefer 1</a><a ng-click="choose(choice.a.name, choice.b.name, choice.a.diff / choice.b.diff)" class="btn btn-primary pull-right">Prefer 2</a>
+    <div class="choices">
+      <div class="options clearfix">
+        <ul class="col-md-6">
+          <div class="option panel panel-default">
+            <h3>Option 1</h3>
+            <li class="scale active">
+              <h5><span>{{ aspects.texts[choice.a.name] }}</span><span class="pull-right">{{ choice.a.level + choice.a.diff }}</span></h5>
+              <div bar="bar" name="choice.a.name" level="choice.a.level" diff="choice.a.diff" class="bar"></div>
+            </li>
+            <li class="scale active">
+              <h5><span>{{ aspects.texts[choice.b.name] }}</span><span class="pull-right">{{ choice.b.level }}</span></h5>
+              <div bar="bar" name="choice.b.name" level="choice.b.level" class="bar"></div>
+            </li>
+            <li ng-repeat="aspect in aspects.names" ng-hide="choice.a.name === aspect || choice.b.name === aspect" class="scale">
+              <h5><span>{{ aspects.texts[aspect] }}</span><span class="pull-right">{{ responses[aspect].level }}</span></h5>
+              <div bar="bar" name="aspect" level="responses[aspect].level" class="bar"></div>
+            </li>
+          </div>
+        </ul>
+        <ul class="col-md-6">
+          <div class="option panel panel-default">
+            <h3>Option 2</h3>
+            <li class="scale active">
+              <h5><span>{{ aspects.texts[choice.a.name] }}</span><span class="pull-right">{{ choice.a.level }}</span></h5>
+              <div bar="bar" name="choice.a.name" level="choice.a.level" class="bar"></div>
+            </li>
+            <li class="scale active">
+              <h5><span>{{ aspects.texts[choice.b.name] }}</span><span class="pull-right">{{ choice.b.level + choice.b.diff }}</span></h5>
+              <div bar="bar" name="choice.b.name" level="choice.b.level" diff="choice.b.diff" class="bar"></div>
+            </li>
+            <li ng-repeat="aspect in aspects.names" ng-hide="choice.a.name === aspect || choice.b.name === aspect" class="scale">
+              <h5><span>{{ aspects.texts[aspect] }}</span><span class="pull-right">{{ responses[aspect].level }}</span></h5>
+              <div bar="bar" name="aspect" level="responses[aspect].level" class="bar"></div>
+            </li>
+          </div>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div ng-hide="choice" class="col-md-6">
+    <table class="table col-md-3 graph">
+      <h5>Minimum</h5>
+      <thead>
+        <tr>
+          <th></th>
+          <th ng-repeat="b in aspects.names">{{ b }} </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="a in aspects.names">
+          <td><b>{{ a }}</b></td>
+          <td ng-repeat="b in aspects.names">{{ getMin(a, b) | filter: round2 }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="table col-md-3 graph">
+      <h5>Maximum</h5>
+      <thead>
+        <tr>
+          <th></th>
+          <th ng-repeat="b in aspects.names">{{ b }} </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="a in aspects.names">
+          <td><b>{{ a }}</b></td>
+          <td ng-repeat="b in aspects.names">{{ getMax(a, b) | filter: round2 }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="table col-md-3 graph">
+      <h5>Mean</h5>
+      <thead>
+        <tr>
+          <th></th>
+          <th ng-repeat="b in aspects.names">{{ b }} </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="a in aspects.names">
+          <td><b>{{ a }}</b></td>
+          <td ng-repeat="b in aspects.names">{{ (getMin(a, b) + getMax(a, b)) / 2 | filter: round2 }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-6">
+    <graph links="edges.forward"></graph>
+    <ul>
+      <h4 ng-repeat="aspect in order">{{ aspect }}</h4>
+    </ul>
+  </div>
+</div>
