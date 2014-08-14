@@ -1,26 +1,51 @@
 
-<div class="row topbar">
-  <div class="col-md-6 col-md-offset-3">
-    <div class="logo">
-      <h2 class="align-right">
-        <div class="small pull-right">β </div>What is a Good Life?
-      </h2>
-    </div>
-    <ul class="list-group menu"><a href="#/history" class="list-group-item title">{{ user.info().email || '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' }}</a><a ng-click="settings.devmode = !settings.devmode" class="list-group-item"> Dev Mode <i ng-show="settings.devmode" class="glyphicon glyphicon-ok"></i></a><a ng-show="user.info().email" ng-click="user.logout()" class="list-group-item">Sign Out</a></ul>
-  </div>
-</div>
 <div class="row">
-  <div earth="earth" class="splash">
+  <div earth="earth" responses="responses" class="splash">
     <div class="earth"></div>
   </div>
-  <div class="col-sm-3 col-sm-offset-3">
-    <div class="welcome panel panel-default">
-      <h5>What is a good life <i>for you? </i>Answer our questions to track your own well-being the way <i>you </i>see it.</h5>
-      <p>This website is in preliminary development stages and should be used for demonstration purposes only. Its methods are based on Benjamin, Daniel J., Ori Heffetz, Miles S. Kimball, and Nichole Szembrot (2013), <a href="http://ssrn.com/abstract=2120784" target="_blank">"Beyond Happiness and Satisfaction: Toward Well-Being Indices Based on Stated Preference.” </a>American Economic Review, forthcoming.</p>
+</div>
+<div class="row foot back"></div>
+<div class="row foot front">
+  <div class="col-xs-1"></div>
+  <div class="col-xs-10">
+    <div class="row logo">
+      <div class="earth pull-left"></div>
+      <h1 class="pull-left">
+        <div class="pull-left">What is a Good Life?</div>
+        <div class="small pull-left">&nbspβ</div>
+      </h1>
+      <form ng-submit="login.submit()" ng-hide="signup.enabled" class="navbar-form navbar-right">
+        <input type="text" name="email" placeholder="{{ login.placeholder.email }}" ng-model="login.email" ng-class="{ invalid: login.wrong === 'INVALID_EMAIL' }" class="form-control"/>
+        <input type="password" name="password" placeholder="{{ login.placeholder.password }}" ng-model="login.password" ng-class="{ invalid: login.wrong === 'INVALID_PASSWORD' }" class="form-control"/>
+        <button type="submit" class="btn dark">Login</button>
+        <button ng-click="signup.init()" class="btn light">Sign Up</button>
+      </form>
+      <form ng-submit="signup.submit()" ng-show="signup.enabled" class="navbar-form navbar-right">
+        <input type="text" name="email" placeholder="{{ signup.placeholder.email }}" ng-model="signup.email" ng-class="{ invalid: signup.wrong === 'INVALID_EMAIL' }" class="form-control"/>
+        <input type="password" name="password" placeholder="{{ signup.placeholder.password }}" ng-model="signup.password" ng-class="{ invalid: signup.wrong === 'INVALID_PASSWORD' }" class="form-control"/>
+        <input type="password" name="confirm" placeholder="{{ signup.placeholder.confirm }}" ng-model="signup.confirm" ng-class="{ invalid: signup.wrong === 'mismatch' }" class="form-control"/>
+        <button type="submit" class="btn dark">Confirm</button>
+      </form>
     </div>
-  </div>
-  <div class="col-sm-3">
-    <div ng-include="'login.html'" class="welcome panel panel-default"></div>
-    <div ng-include="'signup.html'" class="welcome panel panel-default"></div>
+    <div class="row welcome">
+      <div class="col-sm-12">
+        <h2>How can we measure it?</h2>
+      </div>
+      <div class="col-sm-6">
+        <h3><i>1. Subjective-Wellbeing Survey </i></h3>
+        <li ng-repeat="aspect in aspects.names">
+          <h5>{{ aspect }}</h5>
+          <div bar="bar" name="aspect" level="responses[aspect].level" class="bar"></div>
+        </li>
+      </div>
+      <div class="col-sm-3">
+        <h3><i>2. Stated Preference </i></h3>
+        <pie responses="responses"></pie>
+      </div>
+      <div class="col-sm-3">
+        <h5>What is a good life <i>for you? </i>Answer our questions to track your own well-being the way <i>you </i>see it.</h5>
+        <p>This website is in preliminary development stages and should be used for demonstration purposes only. Its methods are based on Benjamin, Daniel J., Ori Heffetz, Miles S. Kimball, and Nichole Szembrot (2013), <a href="http://ssrn.com/abstract=2120784" target="_blank">"Beyond Happiness and Satisfaction: Toward Well-Being Indices Based on Stated Preference.” </a>American Economic Review, forthcoming.</p>
+      </div>
+    </div>
   </div>
 </div>
