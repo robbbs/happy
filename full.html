@@ -1,0 +1,69 @@
+
+<div class="row topbar">
+  <div class="col-md-6 col-md-offset-3">
+    <div class="logo">
+      <h2 class="align-right">
+        <div class="small pull-right">β </div>What is a Good Life?
+      </h2>
+    </div>
+    <ul class="list-group menu"><a href="#/history" class="list-group-item title">{{ user.info().email || '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' }}</a><a ng-click="settings.devmode = !settings.devmode" class="list-group-item"> Dev Mode <i ng-show="settings.devmode" class="glyphicon glyphicon-ok"></i></a><a ng-show="user.info().email" ng-click="user.logout()" class="list-group-item">Sign Out</a></ul>
+  </div>
+</div>
+<div class="row space">
+  <div class="col-md-3">
+    <table ng-show="settings.devmode" class="table col-md-3 graph">
+      <thead>
+        <tr>
+          <th></th>
+          <th ng-repeat="b in aspects.names">{{ b }} </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="a in aspects.names">
+          <td><b>{{ a }}</b></td>
+          <td ng-repeat="b in aspects.names">{{ weight(a, b) }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div ng-show="choice" class="col-md-6 trade">
+    <div class="choices">
+      <div class="options clearfix">
+        <ul class="col-md-6">
+          <div ng-click="choose(choice[0].name, choice[0].name, choice[1].name, choice[0].diff, choice[1].diff)" class="option panel panel-default">
+            <h3>Option 1</h3>
+            <li class="scale active">
+              <h5><span>{{ aspects.texts[choice[0].name] }}</span><span class="pull-right">{{ choice[0].level + choice[0].diff }}</span></h5>
+              <div bar="bar" name="choice[0].name" level="choice[0].level" diff="choice[0].diff" class="bar"></div>
+            </li>
+            <li class="scale active">
+              <h5><span>{{ aspects.texts[choice[1].name] }}</span><span class="pull-right">{{ choice[1].level }}</span></h5>
+              <div bar="bar" name="choice[1].name" level="choice[1].level" class="bar"></div>
+            </li>
+            <li ng-repeat="aspect in aspects.names" ng-hide="choice[0].name === aspect || choice[1].name === aspect" class="scale">
+              <h5><span>{{ aspects.texts[aspect] }}</span><span class="pull-right">{{ responses[aspect].level }}</span></h5>
+              <div bar="bar" name="aspect" level="responses[aspect].level" class="bar"></div>
+            </li><br/>
+          </div><br/><a class="btn btn-lg light full-width">I Prefer Option 1</a>
+        </ul>
+        <ul class="col-md-6">
+          <div ng-click="choose(choice[1].name, choice[0].name, choice[1].name, choice[0].diff, choice[1].diff)" class="option panel panel-default">
+            <h3>Option 2</h3>
+            <li class="scale active">
+              <h5><span>{{ aspects.texts[choice[0].name] }}</span><span class="pull-right">{{ choice[0].level }}</span></h5>
+              <div bar="bar" name="choice[0].name" level="choice[0].level" class="bar"></div>
+            </li>
+            <li class="scale active">
+              <h5><span>{{ aspects.texts[choice[1].name] }}</span><span class="pull-right">{{ choice[1].level + choice[1].diff }}</span></h5>
+              <div bar="bar" name="choice[1].name" level="choice[1].level" diff="choice[1].diff" class="bar"></div>
+            </li>
+            <li ng-repeat="aspect in aspects.names" ng-hide="choice[0].name === aspect || choice[1].name === aspect" class="scale">
+              <h5><span>{{ aspects.texts[aspect] }}</span><span class="pull-right">{{ responses[aspect].level }}</span></h5>
+              <div bar="bar" name="aspect" level="responses[aspect].level" class="bar"></div>
+            </li><br/>
+          </div><br/><a class="btn btn-lg light full-width">I Prefer Option 2</a>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
