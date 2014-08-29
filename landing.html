@@ -4,28 +4,14 @@
     <div class="earth"></div>
   </div>
 </div>
-<div class="row foot back"></div>
-<div class="row foot front">
-  <div class="col-xs-1"></div>
-  <div class="col-xs-10">
+<div class="row foot">
+  <div class="col-md-8 col-md-offset-2">
     <div class="row logo">
-      <div class="earth pull-left"></div>
       <h1 class="pull-left">
         <div class="pull-left">What is a Good Life?</div>
         <div class="small pull-left">&nbspβ</div>
-      </h1>
-      <form ng-submit="login.submit()" ng-hide="signup.enabled" class="navbar-form navbar-right">
-        <input type="text" name="email" placeholder="{{ login.placeholder.email }}" ng-model="login.email" ng-class="{ invalid: login.wrong === 'INVALID_EMAIL' }" class="form-control"/>
-        <input type="password" name="password" placeholder="{{ login.placeholder.password }}" ng-model="login.password" ng-class="{ invalid: login.wrong === 'INVALID_PASSWORD' }" class="form-control"/>
-        <button type="submit" class="btn dark">Login</button>
-        <button ng-click="signup.init()" class="btn light">Sign Up</button>
-      </form>
-      <form ng-submit="signup.submit()" ng-show="signup.enabled" class="navbar-form navbar-right">
-        <input type="text" name="email" placeholder="{{ signup.placeholder.email }}" ng-model="signup.email" ng-class="{ invalid: signup.wrong === 'INVALID_EMAIL' }" class="form-control"/>
-        <input type="password" name="password" placeholder="{{ signup.placeholder.password }}" ng-model="signup.password" ng-class="{ invalid: signup.wrong === 'INVALID_PASSWORD' }" class="form-control"/>
-        <input type="password" name="confirm" placeholder="{{ signup.placeholder.confirm }}" ng-model="signup.confirm" ng-class="{ invalid: signup.wrong === 'mismatch' }" class="form-control"/>
-        <button type="submit" class="btn dark">Confirm</button>
-      </form>
+      </h1><span ng-show="user.info().email" class="pull-right"><a href="#/survey" class="btn dark pull-right">Continue to Survey</a><a ng-click="user.logout()" class="btn light pull-right">Sign Out</a>
+        <div class="email pull-right">{{ user.info().email }}</div></span><span ng-hide="user.info().email" class="pull-right"><a href="#/login" class="btn dark pull-right">Login</a><a href="#/signup" class="btn light pull-right">Sign Up</a></span>
     </div>
     <div class="row welcome">
       <div class="col-sm-12">
@@ -49,3 +35,4 @@
     </div>
   </div>
 </div>
+<div class="row expander"></div>
