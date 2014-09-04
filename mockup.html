@@ -13,15 +13,17 @@
   <div class="col-md-6 col-md-offset-3">
     <div class="row">
       <div class="col-xs-4">
-        <li ng-repeat="(name, value) in responses">
-          <h5>
-            <svg width="16" height="16">
-              <rect width="16" height="16" fill="{{ color(name, 140) }}"></rect>
-            </svg>&nbsp&nbsp{{ name }} 
-          </h5><span>level : {{ value.level }}, weight : {{ weights[name] | number: 2 }}</span>
-          <input type="range" min="0" max="100" step="1" ng-model="value.level"/><span>MRS : 2^{{ MRS[name] }}</span>
-          <input type="range" min="-4" max="4" step="1" ng-model="MRS[name]"/>
-        </li>
+        <fix>
+          <li ng-repeat="(name, value) in responses">
+            <h5>
+              <svg width="16" height="16">
+                <rect width="16" height="16" fill="{{ color(name, 140) }}"></rect>
+              </svg>&nbsp&nbsp{{ name }} 
+            </h5><span>level : {{ value.level }}, weight : {{ weights[name] | number: 2 }}</span>
+            <input type="range" min="0" max="100" step="1" ng-model="value.level"/><span>MRS : 2^{{ MRS[name] }}</span>
+            <input type="range" min="-4" max="4" step="1" ng-model="MRS[name]"/>
+          </li>
+        </fix>
       </div>
       <div class="col-xs-1"></div>
       <div class="col-xs-6">
