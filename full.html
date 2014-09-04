@@ -28,19 +28,20 @@
   </div>
   <div ng-hide="choice" class="col-md-6">
     <div class="row">
-      <h1 style="text-align:center;"><b>Your Weighted Well-Being Pie</b></h1>
-      <div class="col-xs-6">
-        <pie responses="responses" weights="weights"></pie>
+      <div class="col-xs-8">
+        <sicilian responses="responses" weights="weights"></sicilian>
       </div>
-      <div class="col-xs-6"><br/><br/>
-        <h3 ng-repeat="aspect in aspects.names">
+      <div class="col-xs-4">
+        <h2>{{ score | number: 1 }} <span class="text-muted">/ 100</span></h2><br/>
+        <h2><b>Your Values:</b></h2>
+        <h4 ng-repeat="aspect in aspects.sorted">
           <svg width="16" height="16">
             <rect width="16" height="16" fill="{{ aspects.color(aspect, 100) }}"></rect>
-          </svg>&nbsp&nbsp{{ aspect }}
-        </h3>
+          </svg>&nbsp&nbsp{{ weights[aspect] | percent }} {{ aspect }}
+        </h4>
       </div>
     </div>
-    <div class="row">
+    <div ng-show="settings.devmode">
       <h2>Based on Your Data:</h2>
       <pre>{{ data }}</pre>
     </div>
@@ -56,7 +57,7 @@
     </div>
     <div class="choices">
       <div class="options clearfix">
-        <ul class="col-md-6">
+        <ul class="col-xs-6">
           <div ng-click="choose(choice[0].name, choice[0].name, choice[1].name, choice[0].diff, choice[1].diff)" class="option panel panel-default">
             <h3>Option 1</h3>
             <li class="scale active">
@@ -73,7 +74,7 @@
             </li><br/>
           </div><br/><a class="btn btn-lg light full-width">I Prefer Option 1</a>
         </ul>
-        <ul class="col-md-6">
+        <ul class="col-xs-6">
           <div ng-click="choose(choice[1].name, choice[0].name, choice[1].name, choice[0].diff, choice[1].diff)" class="option panel panel-default">
             <h3>Option 2</h3>
             <li class="scale active">
