@@ -57,8 +57,8 @@
     </div>
     <div class="choices">
       <div class="options clearfix">
-        <ul class="col-xs-6">
-          <div ng-click="choose(choice[0].name, choice[0].name, choice[1].name, choice[0].diff, choice[1].diff)" class="option panel panel-default">
+        <ul ng-click="choose(choice[0].name, choice[0].name, choice[1].name, choice[0].diff, choice[1].diff)" class="col-xs-6">
+          <div class="option panel panel-default">
             <h3>Option 1</h3>
             <li class="scale active">
               <h5><span>{{ aspects.texts[choice[0].name] }}</span><span class="pull-right">{{ choice[0].level + choice[0].diff | round1 }}</span></h5>
@@ -74,8 +74,8 @@
             </li><br/>
           </div><br/><a class="btn btn-lg light full-width">I Prefer Option 1</a>
         </ul>
-        <ul class="col-xs-6">
-          <div ng-click="choose(choice[1].name, choice[0].name, choice[1].name, choice[0].diff, choice[1].diff)" class="option panel panel-default">
+        <ul ng-click="choose(choice[1].name, choice[0].name, choice[1].name, choice[0].diff, choice[1].diff)" class="col-xs-6">
+          <div class="option panel panel-default">
             <h3>Option 2</h3>
             <li class="scale active">
               <h5><span>{{ aspects.texts[choice[0].name] }}</span><span class="pull-right">{{ choice[0].level }}</span></h5>
