@@ -26,26 +26,6 @@
       </tbody>
     </table>
   </div>
-  <div ng-hide="choice" class="col-md-6">
-    <div class="row">
-      <div class="col-xs-8">
-        <sicilian responses="responses" weights="weights"></sicilian>
-      </div>
-      <div class="col-xs-4">
-        <h2>{{ score | number: 1 }} <span class="text-muted">/ 100</span></h2><br/>
-        <h2><b>Your Values:</b></h2>
-        <h4 ng-repeat="aspect in aspects.sorted">
-          <svg width="16" height="16">
-            <rect width="16" height="16" fill="{{ aspects.color(aspect, 100) }}"></rect>
-          </svg>&nbsp&nbsp{{ weights[aspect] | percent }} {{ aspect }}
-        </h4>
-      </div>
-    </div>
-    <div ng-show="settings.devmode">
-      <h2>Based on Your Data:</h2>
-      <pre>{{ data }}</pre>
-    </div>
-  </div>
   <div ng-show="choice" class="col-md-6 trade">
     <div class="panel panel-default">
       <div class="panel-body">Each option either increases or decreases the level of one of the aspects you rated. Please choose which option you would prefer. 

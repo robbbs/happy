@@ -1,0 +1,104 @@
+
+<div class="row topbar">
+  <div class="col-md-6 col-md-offset-3">
+    <div class="logo">
+      <h1 class="align-right">
+        <div class="small pull-right">β </div>What is a Good Life?
+      </h1>
+    </div>
+    <ul class="list-group menu"><a class="list-group-item title">{{ user.info().email || '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' }}</a><a ng-click="settings.devmode = !settings.devmode" class="list-group-item"> Dev Mode <i ng-show="settings.devmode" class="glyphicon glyphicon-ok"></i></a><a ng-show="user.info().email" ng-click="user.logout()" class="list-group-item">Sign Out</a></ul>
+  </div>
+</div>
+<div class="row space">
+  <div class="col-md-3">
+    <table ng-show="settings.devmode" class="table col-md-3 graph">
+      <thead>
+        <tr>
+          <th></th>
+          <th ng-repeat="b in aspects.names">{{ b }} </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="a in aspects.names">
+          <td><b>{{ a }}</b></td>
+          <td ng-repeat="b in aspects.names">{{ weight(a, b) }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-6">
+    <div class="row">
+      <div class="col-sm-6">
+        <sicilian responses="responses" weights="weights" sort="weight"></sicilian>
+        <h3><b>How Your Values Stack Up:</b></h3>
+        <h4 ng-repeat="aspect in aspects.sorted">
+          <svg width="16" height="16">
+            <rect width="16" height="16" fill="{{ aspects.color(aspect, 140) }}"></rect>
+          </svg>&nbsp&nbsp{{ weights[aspect] | percent }} {{ aspect }}
+        </h4>
+      </div>
+      <div class="col-sm-6">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            Thanks for completing our survey! 
+            Based on your answers we computed the importance of each aspect of well-being in your own life.
+            We combined the importance of each aspect with your own ratings to produce an approximate picture of your well-being today in the diagram to the left.
+            The height of each bar represents the importance of each aspect to your well-being while the length of the bar equals your own rating of that aspect. 
+            In sum, the total area of the bars shows how you see your well-being today. 
+          </div>
+        </div>
+        <div ng-hide="login.show === 'signedup'" class="panel panel-dark space">
+          <div class="panel-body">    <b>Sign up to track your own personal well-being index! </b><span ng-hide="login.show">Already a member?<a ng-click="login.show = 'login'"> Log in</a> instead to see your well-being index today.</span><span ng-show="login.show">Not yet a member?<a ng-click="login.show = false"> Sign up</a></span></div>
+        </div>
+        <div ng-show="login.show === 'login'" class="space">
+          <div ng-show="login.wrong === 'INVALID_EMAIL'" class="alert alert-danger">Please enter a valid email address</div>
+          <div ng-show="login.wrong === 'INVALID_PASSWORD' || login.wrong === 'INVALID_USER'" class="alert alert-danger">Your username or password is incorrect</div>
+          <div ng-show="signup.wrong === 'in'" class="alert alert-info">Logging you in...</div>
+          <form ng-submit="login.submit()">
+            <div class="form-group">
+              <label for="email">Email address</label>
+              <input type="text" name="email" placeholder="Enter your email" ng-model="login.email" ng-class="{ invalid: login.wrong === 'INVALID_EMAIL' }" class="form-control"/>
+            </div>
+            <div class="form-group">
+              <label>Password</label>
+              <input type="password" name="password" placeholder="{{ login.placeholder.password }}" ng-model="login.password" ng-class="{ invalid: login.wrong === 'INVALID_PASSWORD' }" class="form-control"/>
+            </div>
+            <div class="auth clearfix">
+              <input type="submit" value="Login" class="btn dark pull-right"/>
+            </div>
+          </form>
+        </div>
+        <div ng-hide="login.show" class="space">
+          <div ng-show="signup.wrong === 'INVALID_EMAIL'" class="alert alert-danger">Please enter a valid email address</div>
+          <div ng-show="signup.wrong === 'INVALID_PASSWORD'" class="alert alert-danger">Please enter a password</div>
+          <div ng-show="signup.wrong === 'confirm'" class="alert alert-danger">Your passwords do not match</div>
+          <div ng-show="signup.wrong === 'in'" class="alert alert-info">Logging you in...</div>
+          <form ng-submit="signup.submit()">
+            <div class="form-group">
+              <label for="email">Email address</label>
+              <input type="text" name="email" placeholder="{{ signup.placeholder.email }}" ng-model="signup.email" ng-class="{ invalid: signup.wrong === 'INVALID_EMAIL' }" class="form-control"/>
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" name="password" placeholder="{{ signup.placeholder.password }}" ng-model="signup.password" ng-class="{ invalid: signup.wrong === 'INVALID_PASSWORD' }" class="form-control"/>
+            </div>
+            <div class="form-group">
+              <label for="password">Confirm Password</label>
+              <input type="password" name="password" placeholder="{{ signup.placeholder.confirm }}" ng-model="signup.confirm" ng-class="{ invalid: signup.wrong === 'mismatch' }" class="form-control"/>
+            </div>
+            <div class="auth clearfix">
+              <input type="submit" value="Sign Up" class="btn dark pull-right"/>
+            </div>
+          </form>
+        </div>
+        <div ng-show="login.show === 'signedup'" class="space">
+          <h2><b>Thank You for Signing Up!</b></h2>
+        </div>
+      </div>
+    </div>
+    <div ng-show="settings.devmode" class="row">
+      <h2>Based on Your Data:</h2>
+      <pre>{{ data }}</pre>
+    </div>
+  </div>
+</div>
