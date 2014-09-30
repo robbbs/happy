@@ -24,7 +24,7 @@
       <div class="panel-body">Each pair of options that appears below present a choice between two scenarios. The scenarios exclusively improve one aspect of your well-being. For each pair, choose the option you prefer.</div>
     </div>
     <div class="row"><a ng-click="next()" ng-show="finished" class="btn btn-primary pull-right space">Next</a></div>
-    <div ng-repeat="a in choices.comparisons" ng-show="prevDone($index) &amp;&amp; !choices.top" class="row">
+    <div ng-repeat="a in choices.comparisons" ng-show="prevDone($index) &amp;&amp; !choices.top" class="row space">
       <div class="col-xs-6">
         <div ng-click="pref[a] = 1" ng-class="{ chosen: pref[a] === 1, unchosen: pref[a] === 2 }" class="panel panel-default option">
           <div class="panel-body">
