@@ -1,0 +1,32 @@
+
+<div class="row topbar">
+  <div class="col-md-6 col-md-offset-3">
+    <div class="logo">
+      <h1 class="align-right">
+        <div class="small pull-right">β </div>What is a Good Life?
+      </h1>
+    </div>
+    <ul class="list-group menu"><a class="list-group-item title">{{ user.info().email || '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' }}</a><a ng-click="settings.devmode = !settings.devmode" class="list-group-item"> Dev Mode <i ng-show="settings.devmode" class="glyphicon glyphicon-ok"></i></a><a ng-show="user.info().email" ng-click="user.logout()" class="list-group-item">Sign Out</a></ul>
+  </div>
+</div>
+<div class="row space"></div>
+<div class="col-md-6 col-md-offset-3">
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <h3>Consent</h3>
+      <p>Please consider this information carefully before deciding whether to participate in this research.</p>
+      <h5>Purpose of the research:</h5>
+      <p>Lorem ipsum Ut irure sed nulla labore Duis sint sunt eiusmod commodo qui sit. Lorem ipsum Nostrud fugiat et aute anim culpa cillum ullamco Duis. Lorem ipsum Culpa quis pariatur culpa amet voluptate Duis ea incididunt laborum laboris. Lorem ipsum Magna voluptate occaecat Duis velit eiusmod tempor dolore. Lorem ipsum Nulla cillum sit sed magna occaecat et deserunt et in in et elit. Lorem ipsum Commodo enim sit nisi deserunt in anim dolore irure ullamco aliqua irure. </p>
+      <h5>Risks:</h5>
+      <p>Lorem ipsum Laboris dolore proident est ex labore ullamco exercitation ad in id sed veniam. Lorem ipsum Non nostrud ex velit quis id. Lorem ipsum In cillum sed do laborum adipisicing id pariatur esse fugiat Ut culpa. Lorem ipsum Do enim ut officia non laborum.</p>
+      <h5>Confidentiality:</h5>
+      <p>Lorem ipsum Proident esse in consequat ex et. Lorem ipsum Aute ea proident veniam sit proident aliquip velit et et magna elit deserunt. Lorem ipsum Occaecat elit quis adipisicing laboris eiusmod Ut velit. Lorem ipsum Sint incididunt anim quis deserunt nostrud et deserunt. Lorem ipsum Sint dolore aute ex Ut pariatur sint qui cillum proident qui ut.</p>
+      <h5>Participation and withdrawal:</h5>
+      <p>Lorem ipsum Dolore ad in exercitation elit pariatur nostrud magna dolore. Lorem ipsum Consectetur id elit dolor exercitation in ut magna in. Lorem ipsum Consequat officia aute irure do pariatur consectetur in non id irure in. Lorem ipsum Ullamco eu ad qui in qui exercitation reprehenderit et. Lorem ipsum Do adipisicing nulla in aute Ut sed occaecat qui voluptate mollit. Lorem ipsum In est labore fugiat exercitation dolor eiusmod dolore quis aute culpa.</p>
+      <div class="space">
+        <input type="checkbox" name="consent" ng-model="consent"/>
+        <label for="consent">&nbspI agree </label>
+      </div><a href="#/survey" ng-show="consent" class="btn btn-primary pull-right">Continue</a>
+    </div>
+  </div>
+</div>

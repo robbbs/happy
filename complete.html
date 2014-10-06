@@ -48,7 +48,7 @@
           </div>
         </div>
         <div ng-hide="login.show === 'signedup'" class="panel panel-dark space">
-          <div class="panel-body">    <b>Sign up to track your own personal well-being index! </b><span ng-hide="login.show">Already a member?<a ng-click="login.show = 'login'"> Log in</a> instead to see your well-being index today.</span><span ng-show="login.show">Not yet a member?<a ng-click="login.show = false"> Sign up</a></span></div>
+          <div class="panel-body">    <b>Sign up to track your own personal well-being index! </b><span ng-hide="login.show">Already a member?<a ng-click="login.show = 'login'"> Log in</a> instead to see your well-being index as of today.</span><span ng-show="login.show">Not yet a member?<a ng-click="login.show = false"> Sign up</a></span></div>
         </div>
         <div ng-show="login.show === 'login'" class="space">
           <div ng-show="login.wrong === 'INVALID_EMAIL'" class="alert alert-danger">Please enter a valid email address</div>
