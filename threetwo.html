@@ -14,6 +14,13 @@
 </div>
 <div class="row space">
   <div class="col-md-3">
+    <ul>
+      <li ng-repeat="a in aspects.names"><b>{{ a }}</b><b class="text-muted"> {{ responses[a].level }}</b>
+        <ul>
+          <li ng-repeat="b in aspects.names"><span>{{ b }} : {{ choices.getMRS(b, a) }}</span></li>
+        </ul>
+      </li>
+    </ul>
   </div>
   <div ng-show="choice" class="col-md-6 trade">
     <div class="panel panel-default">
