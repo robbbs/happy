@@ -9,96 +9,59 @@
     <ul class="list-group menu"><a class="list-group-item title">{{ user.info().email || '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' }}</a><a ng-click="settings.devmode = !settings.devmode" class="list-group-item"> Dev Mode <i ng-show="settings.devmode" class="glyphicon glyphicon-ok"></i></a><a ng-show="user.info().email" ng-click="user.logout()" class="list-group-item">Sign Out</a></ul>
   </div>
 </div>
+<div class="row font-reset">
+  <prog complete="completed"></prog>
+</div>
 <div class="row space">
-  <div class="col-md-2">
-    <table ng-show="settings.devmode" class="table">
-      <thead>
-        <tr>
-          <th>Aspect</th>
-          <th>Level</th>
-          <th>Lower</th>
-          <th>Upper</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="aspect in aspects">
-          <td>{{ aspect }}</td>
-          <td>{{ responses[aspect].level }}</td>
-          <td>{{ responses[aspect].lower }}</td>
-          <td>{{ responses[aspect].upper }}</td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="col-md-3">
+    <ul ng-show="settings.devmode">
+      <li ng-repeat="a in aspects.names"><b>{{ a }}</b><b class="text-muted"> {{ responses[a].level }}</b>
+        <ul>
+          <li ng-repeat="b in aspects.names"><span>{{ b }} : {{ choices.getMRS(b, a) }}</span></li>
+        </ul>
+      </li>
+    </ul>
   </div>
-  <div class="col-md-6 col-md-offset-1 trade">
+  <div ng-show="choice" class="col-md-6 trade">
     <div class="panel panel-default">
-      <div class="panel-body">Now, imagine you are making a personal decision between two options: Option 1 and Option 2. Each option is predicted to affect only one of the aspects you rated, as shown below. <a ng-click="further = true" ng-show="!further" class="pointer">Further explanation</a><a ng-click="further = false" ng-show="further" class="pointer">Less explanation</a>
-        <p ng-show="further">
-          The scales below show these predicted differences in the next four years:
-          under Option 1, your rating of your <b>{{ choice.numeraire.name | lowercase }} </b>would improve by <b>{{ choice.numeraire.diff }} points</b>, while under Option 2, your rating of your <b>{{ choice.comparison.name | lowercase }}</b> would improve by <b>{{ choice.comparison.diff }} points. </b>(As the scales show, your rating of all other aspects would not change regardless of the option you choose.)
-        </p>
-      </div>
+      <div class="panel-body">Each option either increases or decreases the level of one of the aspects you rated. Please choose which option you would prefer. </div>
     </div>
     <div class="choices">
       <div class="options clearfix">
-        <ul class="col-md-6">
+        <ul ng-click="choose(choice.i *  2 + 1)" class="col-xs-6">
           <div class="option panel panel-default">
             <h3>Option 1</h3>
-            <li ng-repeat="aspect in aspects" class="scale">
-              <div slider="slider" fixed="true" name="{{ aspect }}" diff="{{ left[aspect].diff }}" ng-class="{ active: left[aspect].diff || right[aspect].diff }" class="fixed"></div>
+            <li class="scale active">
+              <h5><span>{{ aspects.texts[choice.aspects[0]] | capitalize }}</span><span class="pull-right">{{ responses[choice.aspects[0]].level + choice.tradeoff[0] | round1 }}</span></h5>
+              <diff name="choice.aspects[0]" level="responses[choice.aspects[0]].level" diff="choice.tradeoff[0]"></diff>
             </li>
-          </div>
+            <li class="scale active">
+              <h5><span>{{ aspects.texts[choice.aspects[1]] | capitalize }}</span><span class="pull-right">{{ responses[choice.aspects[1]].level }}</span></h5>
+              <diff name="choice.aspects[1]" level="responses[choice.aspects[1]].level"></diff>
+            </li>
+            <li ng-repeat="aspect in aspects.names" ng-hide="choice.aspects[0] === aspect || choice.aspects[1] === aspect" class="scale">
+              <h5><span>{{ aspects.texts[aspect] | capitalize }}</span><span class="pull-right">{{ responses[aspect].level }}</span></h5>
+              <bar name="aspect" level="responses[aspect].level" choice="choice"></bar>
+            </li><br/>
+          </div><br/><a class="btn btn-lg light full-width">I Prefer Option 1</a>
         </ul>
-        <ul class="col-md-6">
+        <ul ng-click="choose(choice.i *  2 + 2)" class="col-xs-6">
           <div class="option panel panel-default">
             <h3>Option 2</h3>
-            <li ng-repeat="aspect in aspects" class="scale">
-              <div slider="slider" fixed="true" name="{{ aspect }}" diff="{{ right[aspect].diff }}" ng-class="{ active: left[aspect].diff || right[aspect].diff }" class="fixed"></div>
+            <li class="scale active">
+              <h5><span>{{ aspects.texts[choice.aspects[0]] | capitalize }}</span><span class="pull-right">{{ responses[choice.aspects[0]].level | round1 }}</span></h5>
+              <diff name="choice.aspects[0]" level="responses[choice.aspects[0]].level"></diff>
             </li>
-          </div>
+            <li class="scale active">
+              <h5><span>{{ aspects.texts[choice.aspects[1]] | capitalize }}</span><span class="pull-right">{{ responses[choice.aspects[1]].level + choice.tradeoff[1] }}</span></h5>
+              <diff name="choice.aspects[1]" level="responses[choice.aspects[1]].level" diff="choice.tradeoff[1]"></diff>
+            </li>
+            <li ng-repeat="aspect in aspects.names" ng-hide="choice.aspects[0] === aspect || choice.aspects[1] === aspect" class="scale">
+              <h5><span>{{ aspects.texts[aspect] | capitalize }}</span><span class="pull-right">{{ responses[aspect].level }}</span></h5>
+              <bar name="aspect" level="responses[aspect].level" choice="choice"></bar>
+            </li><br/>
+          </div><br/><a class="btn btn-lg light full-width">I Prefer Option 2</a>
         </ul>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-6 col-md-offset-3 question">
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <div class="prefs"><a ng-show="prefs.degree" ng-click="prefs.next()" class="btn btn-primary pull-right">Next choice</a>Between these two options, which do you prefer?<br/><br/></div>
-        <div class="prefs"><b class="small pull-left">Much prefer Option 1</b><b class="small pull-right">Much prefer Option 2</b></div>
-        <div class="prefs">
-          <label class="pref">
-            <input type="radio" name="pref" ng-model="prefs.degree" value="-5"/>
-          </label>
-          <label class="pref">
-            <input type="radio" name="pref" ng-model="prefs.degree" value="-4"/>
-          </label>
-          <label class="pref">
-            <input type="radio" name="pref" ng-model="prefs.degree" value="-3"/>
-          </label>
-          <label class="pref">
-            <input type="radio" name="pref" ng-model="prefs.degree" value="-2"/>
-          </label>
-          <label class="pref">
-            <input type="radio" name="pref" ng-model="prefs.degree" value="-1"/>
-          </label>
-          <label class="pref">
-            <input type="radio" name="pref" ng-model="prefs.degree" value="1"/>
-          </label>
-          <label class="pref">
-            <input type="radio" name="pref" ng-model="prefs.degree" value="2"/>
-          </label>
-          <label class="pref">
-            <input type="radio" name="pref" ng-model="prefs.degree" value="3"/>
-          </label>
-          <label class="pref">
-            <input type="radio" name="pref" ng-model="prefs.degree" value="4"/>
-          </label>
-          <label class="pref">
-            <input type="radio" name="pref" ng-model="prefs.degree" value="5"/>
-          </label>
-        </div>
       </div>
     </div>
   </div>
