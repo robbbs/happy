@@ -33,11 +33,11 @@
             <h3>Option 1</h3>
             <li class="scale active">
               <h5><span>{{ aspects.texts[choice.aspects[0]] | capitalize }}</span><span class="pull-right">{{ responses[choice.aspects[0]].level + choice.tradeoff[0] | round1 }}</span></h5>
-              <diff name="choice.aspects[0]" level="responses[choice.aspects[0]].level" diff="choice.tradeoff[0]"></diff>
+              <bar name="choice.aspects[0]" level="responses[choice.aspects[0]].level" diff="choice.tradeoff[0]"></bar>
             </li>
             <li class="scale active">
               <h5><span>{{ aspects.texts[choice.aspects[1]] | capitalize }}</span><span class="pull-right">{{ responses[choice.aspects[1]].level }}</span></h5>
-              <diff name="choice.aspects[1]" level="responses[choice.aspects[1]].level"></diff>
+              <bar name="choice.aspects[1]" level="responses[choice.aspects[1]].level"></bar>
             </li>
             <li ng-repeat="aspect in aspects.names" ng-hide="choice.aspects[0] === aspect || choice.aspects[1] === aspect" class="scale">
               <h5><span>{{ aspects.texts[aspect] | capitalize }}</span><span class="pull-right">{{ responses[aspect].level }}</span></h5>
@@ -50,11 +50,11 @@
             <h3>Option 2</h3>
             <li class="scale active">
               <h5><span>{{ aspects.texts[choice.aspects[0]] | capitalize }}</span><span class="pull-right">{{ responses[choice.aspects[0]].level | round1 }}</span></h5>
-              <diff name="choice.aspects[0]" level="responses[choice.aspects[0]].level"></diff>
+              <bar name="choice.aspects[0]" level="responses[choice.aspects[0]].level"></bar>
             </li>
             <li class="scale active">
               <h5><span>{{ aspects.texts[choice.aspects[1]] | capitalize }}</span><span class="pull-right">{{ responses[choice.aspects[1]].level + choice.tradeoff[1] }}</span></h5>
-              <diff name="choice.aspects[1]" level="responses[choice.aspects[1]].level" diff="choice.tradeoff[1]"></diff>
+              <bar name="choice.aspects[1]" level="responses[choice.aspects[1]].level" diff="choice.tradeoff[1]"></bar>
             </li>
             <li ng-repeat="aspect in aspects.names" ng-hide="choice.aspects[0] === aspect || choice.aspects[1] === aspect" class="scale">
               <h5><span>{{ aspects.texts[aspect] | capitalize }}</span><span class="pull-right">{{ responses[aspect].level }}</span></h5>
