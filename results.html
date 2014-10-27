@@ -1,86 +1,38 @@
-<!DOCTYPE html>
-<html ng-app="well">
-  <head>
-    <meta charset="utf8">
-    <meta name="viewport" content="initial-scale=0.5, user-scalable=no">
-    <base href="/">
-    <title>Well-Being Index</title>
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="styles/app.css">
-    <link rel="stylesheet" href="//brick.a.ssl.fastly.net/Karla:400,400i,700,700i">
-  </head>
-  <body ng-controller="AppCtrl">
-    <div ng-controller="DataCtrl">
-      <div>
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Aspects</th>
-              <th>Choices</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr ng-repeat="response in data">
-              <td>{{ response.date | date }}</td>
-              <td>
-                <table class="table">
-                  <thead>
-                    <tr>
-                      <td><b>Name</b></td>
-                      <td><b>Level</b></td>
-                      <td><b>Lower</b></td>
-                      <td><b>Upper</b></td>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr ng-repeat="aspect in response.aspects">
-                      <td>{{ aspect.name }}</td>
-                      <td>{{ aspect.level }}</td>
-                      <td>{{ aspect.lower }}</td>
-                      <td>{{ aspect.upper }}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td>
-                <table class="table">
-                  <thead>
-                    <tr>
-                      <td><b>Numeraire</b></td>
-                      <td><b>Alternative</b></td>
-                      <td><b>Num Diff</b></td>
-                      <td><b>Alt Diff</b></td>
-                      <td><b>Preference</b></td>
-                      <td><b>Time</b></td>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr ng-repeat="choice in response.choices">
-                      <td>{{ response.aspects[choice.n].name + ': ' +  response.aspects[choice.n].level }}</td>
-                      <td>{{ response.aspects[choice.i].name + ': ' +  response.aspects[choice.i].level }}</td>
-                      <td>{{ choice.a }}</td>
-                      <td>{{ choice.b }}</td>
-                      <td>{{ choice.p }}</td>
-                      <td>{{ choice.t }}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+
+<div class="row topbar">
+  <div class="col-md-6 col-md-offset-3">
+    <div class="logo">
+      <h1 class="align-right">
+        <div class="small pull-right">β </div>What is a Good Life?
+      </h1>
+    </div>
+    <ul class="list-group menu"><a class="list-group-item title">{{ user.info().email || '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' }}</a><a ng-click="settings.devmode = !settings.devmode" class="list-group-item"> Dev Mode <i ng-show="settings.devmode" class="glyphicon glyphicon-ok"></i></a><a ng-show="user.info().email" ng-click="user.logout()" class="list-group-item">Sign Out</a></ul>
+  </div>
+</div>
+<div class="row space">
+  <div class="col-md-3"></div>
+  <div class="col-md-3 col-sm-6">
+    <sicilian responses="responses" weights="weights" sort="weight"></sicilian>
+  </div>
+  <div class="col-md-3 col-sm-6">
+    <h3><b>How Your Values Stack Up:</b></h3>
+    <h4 ng-repeat="aspect in aspects.sorted">
+      <svg width="16" height="16">
+        <rect width="16" height="16" fill="{{ aspects.color(aspect, 140) }}"></rect>
+      </svg>&nbsp&nbsp{{ weights[aspect] | percent }} {{ aspect }}
+    </h4>
+    <div class="panel panel-default space">
+      <div class="panel-body">
+        Thanks for completing our survey! 
+        Based on your answers we computed the importance of each aspect of well-being in your own life.
+        We combined the importance of each aspect with your own ratings to produce an approximate picture of your well-being today in the diagram to the left.
+        The height of each bar represents the importance of each aspect to your well-being while the length of the bar equals your own rating of that aspect. 
+        In sum, the total area of the bars shows how you see your well-being today.
       </div>
     </div>
-    <footer class="small right">© Ori Heffetz, Dan Benjamin, Miles Kimball</footer>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.4.8/d3.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.1.0/topojson.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.11/angular.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.11/angular-route.min.js"></script>
-    <script src="//cdn.firebase.com/js/client/1.0.17/firebase.js"></script>
-    <script src="//cdn.firebase.com/js/simple-login/1.6.2/firebase-simple-login.js"></script>
-    <script src="//cdn.firebase.com/libs/angularfire/0.8.0/angularfire.min.js"></script>
-    <script src="scripts/all.min.js"></script>
-  </body>
-</html>
+  </div>
+</div>
+<div ng-show="settings.devmode" class="row space">
+  <h2>Based on Your Data:</h2>
+  <pre>{{ data }}</pre>
+</div>
