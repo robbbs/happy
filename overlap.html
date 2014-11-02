@@ -6,7 +6,7 @@
         <div class="small pull-right">β </div>What is a Good Life?
       </h1>
     </div>
-    <ul class="list-group menu"><a class="list-group-item title">{{ user.info().email || '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' }}</a><a ng-click="settings.devmode = !settings.devmode" class="list-group-item"> Dev Mode <i ng-show="settings.devmode" class="glyphicon glyphicon-ok"></i></a><a ng-show="user.info().email" ng-click="user.logout()" class="list-group-item">Sign Out</a></ul>
+    <ul class="list-group menu"><a class="list-group-item title">{{ user.info().email || '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' }}</a><a ng-click="settings.devmode = !settings.devmode" class="list-group-item"> Dev Mode <i ng-show="settings.devmode" class="glyphicon glyphicon-ok"></i></a><a ng-click="settings.overlap = !settings.overlap" class="list-group-item"> Test Overlap <i ng-show="settings.overlap" class="glyphicon glyphicon-ok"></i></a><a ng-show="user.info().email" ng-click="user.logout()" class="list-group-item">Sign Out</a></ul>
   </div>
 </div>
 <div class="row font-reset">
@@ -32,14 +32,18 @@
           <div class="option panel panel-default">
             <h3>Option 1</h3>
             <li class="scale active">
-              <h5><span>{{ aspects.texts[choice.aspects[0]] | capitalize }}</span><span class="pull-right">{{ responses[choice.aspects[0]].level + choice.tradeoff[0] | round1 }}</span></h5>
-              <bar name="choice.aspects[0]" level="responses[choice.aspects[0]].level" diff="choice.tradeoff[0]"></bar>
+              <h5><span>{{ aspects.texts[overlap.aspects[0]] | capitalize }}</span><span class="pull-right">{{ responses[overlap.aspects[0]].level + choice.tradeoff[0] * 2 | round1 }}</span></h5>
+              <bar name="overlap.aspects[0]" level="responses[overlap.aspects[0]].level" diff="choice.tradeoff[0] * 2"></bar>
             </li>
             <li class="scale active">
-              <h5><span>{{ aspects.texts[choice.aspects[1]] | capitalize }}</span><span class="pull-right">{{ responses[choice.aspects[1]].level }}</span></h5>
-              <bar name="choice.aspects[1]" level="responses[choice.aspects[1]].level"></bar>
+              <h5><span>{{ aspects.texts[overlap.aspects[1]] | capitalize }}</span><span class="pull-right">{{ responses[overlap.aspects[1]].level }}</span></h5>
+              <bar name="overlap.aspects[1]" level="responses[overlap.aspects[1]].level"></bar>
             </li>
-            <li ng-repeat="aspect in aspects.names" ng-hide="choice.aspects[0] === aspect || choice.aspects[1] === aspect" class="scale">
+            <li class="scale active">
+              <h5><span>{{ aspects.texts[overlap.aspects[2]] | capitalize }}</span><span class="pull-right">{{ responses[overlap.aspects[2]].level }}</span></h5>
+              <bar name="overlap.aspects[2]" level="responses[overlap.aspects[2]].level"></bar>
+            </li>
+            <li ng-repeat="aspect in aspects.names" ng-hide="overlap.aspects[0] === aspect || overlap.aspects[1] === aspect || overlap.aspects[2] === aspect" class="scale">
               <h5><span>{{ aspects.texts[aspect] | capitalize }}</span><span class="pull-right">{{ responses[aspect].level }}</span></h5>
               <bar name="aspect" level="responses[aspect].level" choice="choice"></bar>
             </li><br/>
@@ -49,14 +53,18 @@
           <div class="option panel panel-default">
             <h3>Option 2</h3>
             <li class="scale active">
-              <h5><span>{{ aspects.texts[choice.aspects[0]] | capitalize }}</span><span class="pull-right">{{ responses[choice.aspects[0]].level | round1 }}</span></h5>
-              <bar name="choice.aspects[0]" level="responses[choice.aspects[0]].level"></bar>
+              <h5><span>{{ aspects.texts[overlap.aspects[0]] | capitalize }}</span><span class="pull-right">{{ responses[overlap.aspects[0]].level | round1 }}</span></h5>
+              <bar name="overlap.aspects[0]" level="responses[overlap.aspects[0]].level"></bar>
             </li>
             <li class="scale active">
-              <h5><span>{{ aspects.texts[choice.aspects[1]] | capitalize }}</span><span class="pull-right">{{ responses[choice.aspects[1]].level + choice.tradeoff[1] }}</span></h5>
-              <bar name="choice.aspects[1]" level="responses[choice.aspects[1]].level" diff="choice.tradeoff[1]"></bar>
+              <h5><span>{{ aspects.texts[overlap.aspects[1]] | capitalize }}</span><span class="pull-right">{{ responses[overlap.aspects[1]].level + choice.tradeoff[1] }}</span></h5>
+              <bar name="overlap.aspects[1]" level="responses[overlap.aspects[1]].level" diff="choice.tradeoff[1]"></bar>
             </li>
-            <li ng-repeat="aspect in aspects.names" ng-hide="choice.aspects[0] === aspect || choice.aspects[1] === aspect" class="scale">
+            <li class="scale active">
+              <h5><span>{{ aspects.texts[overlap.aspects[2]] | capitalize }}</span><span class="pull-right">{{ responses[overlap.aspects[2]].level + choice.tradeoff[1] }}</span></h5>
+              <bar name="overlap.aspects[2]" level="responses[overlap.aspects[2]].level" diff="choice.tradeoff[1]"></bar>
+            </li>
+            <li ng-repeat="aspect in aspects.names" ng-hide="overlap.aspects[0] === aspect || overlap.aspects[1] === aspect || overlap.aspects[2] === aspect" class="scale">
               <h5><span>{{ aspects.texts[aspect] | capitalize }}</span><span class="pull-right">{{ responses[aspect].level }}</span></h5>
               <bar name="aspect" level="responses[aspect].level" choice="choice"></bar>
             </li><br/>
