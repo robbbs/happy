@@ -6,7 +6,7 @@
         <div class="small pull-right">β </div>What is a Good Life?
       </h1>
     </div>
-    <ul class="list-group menu"><a class="list-group-item title">{{ user.info().email || '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' }}</a><a ng-click="settings.devmode = !settings.devmode" class="list-group-item"> Dev Mode <i ng-show="settings.devmode" class="glyphicon glyphicon-ok"></i></a><a ng-click="settings.overlap = !settings.overlap" class="list-group-item"> Test Overlap <i ng-show="settings.overlap" class="glyphicon glyphicon-ok"></i></a><a ng-show="user.info().email" ng-click="user.logout()" class="list-group-item">Sign Out</a></ul>
+    <ul class="list-group menu"><a class="list-group-item title">{{ user.info().email || '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' }}</a><a ng-click="settings.devmode = !settings.devmode" class="list-group-item"> Dev Mode <i ng-show="settings.devmode" class="glyphicon glyphicon-ok"></i></a><a ng-show="settings.overlap === 'on'" ng-click="settings.overlap = 'off'" class="list-group-item"> Overlap <i class="glyphicon glyphicon-ok"></i></a><a ng-hide="settings.overlap === 'on'" ng-click="settings.overlap = 'on'" class="list-group-item"> Overlap </a><a ng-show="user.info().email" ng-click="user.logout()" class="list-group-item">Sign Out</a></ul>
   </div>
 </div>
 <div class="row font-reset">
@@ -22,7 +22,12 @@
       </li>
     </ul>
   </div>
-  <div ng-show="choice" class="col-md-6 trade">
+  <div ng-show="!preamble" class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-body">In the questions that will follow, we will ask you to compare options involving changes in some of these aspects well-being. When an option involves changes in more than one aspect of well-being, these aspects of well-being may be either totally distinct or they may mean similar things. When two aspects of well-being mean similar things, and both change, please consider the change indicated as being a bigger change only to the extent that two aspects of well-being actually do cover different things. <a ng-click="preamble = true" class="btn btn-primary pull-right space">Continue</a></div>
+    </div>
+  </div>
+  <div ng-show="choice &amp;&amp; preamble" class="col-md-6 trade">
     <div class="panel panel-default">
       <div class="panel-body">Each option either increases or decreases the level of one of the aspects you rated. Please choose which option you would prefer. </div>
     </div>
@@ -33,7 +38,7 @@
             <h3>Option 1</h3>
             <li class="scale active">
               <h5><span>{{ aspects.texts[overlap.aspects[0]] | capitalize }}</span><span class="pull-right">{{ responses[overlap.aspects[0]].level + choice.tradeoff[0] * 2 | round1 }}</span></h5>
-              <bar name="overlap.aspects[0]" level="responses[overlap.aspects[0]].level" diff="choice.tradeoff[0] * 2"></bar>
+              <bar name="overlap.aspects[0]" level="responses[overlap.aspects[0]].level" diff="doubled ? choice.tradeoff[0] * 2 : choice.tradeoff[0]"></bar>
             </li>
             <li class="scale active">
               <h5><span>{{ aspects.texts[overlap.aspects[1]] | capitalize }}</span><span class="pull-right">{{ responses[overlap.aspects[1]].level }}</span></h5>

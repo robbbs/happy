@@ -9,15 +9,15 @@
     <ul class="list-group menu"><a class="list-group-item title">{{ user.info().email || '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' }}</a><a ng-click="settings.devmode = !settings.devmode" class="list-group-item"> Dev Mode <i ng-show="settings.devmode" class="glyphicon glyphicon-ok"></i></a><a ng-show="settings.overlap === 'on'" ng-click="settings.overlap = 'off'" class="list-group-item"> Overlap <i class="glyphicon glyphicon-ok"></i></a><a ng-hide="settings.overlap === 'on'" ng-click="settings.overlap = 'on'" class="list-group-item"> Overlap </a><a ng-show="user.info().email" ng-click="user.logout()" class="list-group-item">Sign Out</a></ul>
   </div>
 </div>
+<div class="row font-reset">
+  <prog complete="1"></prog>
+</div>
 <div class="row space">
-  <ul class="col-md-6 col-md-offset-3">
+  <div class="col-md-4 col-md-offset-4">
     <div class="panel panel-default">
-      <div class="panel-body">On a scale from 0 to 100, where 0 is the lowest possible rating and 100 is the highest possible rating, how would you rate the following aspects of your life?</div>
+      <div class="panel-body">
+        <h2>Thank You!</h2>Thanks for completing our survey
+      </div>
     </div>
-    <li ng-repeat="aspect in aspects.names" class="slide">
-      <h5><span>{{ aspects.texts[aspect] | capitalize }}</span><span class="pull-right">{{ responses[aspect].level }}</span></h5>
-      <range level="responses[aspect].level"></range>
-      <bar name="aspect" level="responses[aspect].level"></bar>
-    </li><br/><a ng-click="next()" ng-show="survey.finished" class="btn btn-primary pull-right">Next</a>
-  </ul>
+  </div>
 </div>

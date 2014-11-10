@@ -6,7 +6,7 @@
         <div class="small pull-right">β </div>What is a Good Life?
       </h1>
     </div>
-    <ul class="list-group menu"><a class="list-group-item title">{{ user.info().email || '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' }}</a><a ng-click="settings.devmode = !settings.devmode" class="list-group-item"> Dev Mode <i ng-show="settings.devmode" class="glyphicon glyphicon-ok"></i></a><a ng-click="settings.overlap = !settings.overlap" class="list-group-item"> Test Overlap <i ng-show="settings.overlap" class="glyphicon glyphicon-ok"></i></a><a ng-show="user.info().email" ng-click="user.logout()" class="list-group-item">Sign Out</a></ul>
+    <ul class="list-group menu"><a class="list-group-item title">{{ user.info().email || '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' }}</a><a ng-click="settings.devmode = !settings.devmode" class="list-group-item"> Dev Mode <i ng-show="settings.devmode" class="glyphicon glyphicon-ok"></i></a><a ng-show="settings.overlap === 'on'" ng-click="settings.overlap = 'off'" class="list-group-item"> Overlap <i class="glyphicon glyphicon-ok"></i></a><a ng-hide="settings.overlap === 'on'" ng-click="settings.overlap = 'on'" class="list-group-item"> Overlap </a><a ng-show="user.info().email" ng-click="user.logout()" class="list-group-item">Sign Out</a></ul>
   </div>
 </div>
 <div class="row space">
