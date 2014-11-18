@@ -20,8 +20,8 @@
       <h1 class="pull-left">
         <div class="pull-left">What is a Good Life?</div>
         <div class="small pull-left">&nbspβ</div>
-      </h1><span ng-show="user.info().email" class="pull-right"><a href="#/survey" class="btn dark pull-right">Continue to Survey</a><a ng-click="user.logout()" class="btn light pull-right">Sign Out</a>
-        <div class="email pull-right">{{ user.info().email }}</div></span><span ng-hide="user.info().email" class="pull-right"><a href="#/login" class="btn light pull-right">Login</a><a href="#/consent" class="btn dark pull-right">Take the Survey</a></span>
+      </h1><span ng-show="user.info.email" class="pull-right"><a href="#/survey" class="btn dark pull-right">Continue to Survey</a><a ng-click="user.logout()" class="btn light pull-right">Sign Out</a>
+        <div class="email pull-right">{{ user.info.email }}</div></span><span ng-hide="user.info.email" class="pull-right"><a href="#/login" class="btn light pull-right">Login</a><a href="#/consent" class="btn dark pull-right">Take the Survey</a></span>
     </div>
   </div>
 </div>
