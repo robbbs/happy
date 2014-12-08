@@ -6,7 +6,7 @@
         <div class="small pull-right">β </div>What is a Good Life?
       </h1>
     </div>
-    <ul class="list-group menu"><a class="list-group-item title">{{ user.info.password.email || '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' }}</a><a ng-click="settings.devmode = !settings.devmode" class="list-group-item"> Dev Mode <i ng-show="settings.devmode" class="glyphicon glyphicon-ok"></i></a><a ng-show="settings.overlap === 'on'" ng-click="settings.overlap = 'off'" class="list-group-item"> Overlap <i class="glyphicon glyphicon-ok"></i></a><a ng-hide="settings.overlap === 'on'" ng-click="settings.overlap = 'on'" class="list-group-item"> Overlap </a><a ng-show="user.info.email" ng-click="user.logout()" class="list-group-item">Sign Out</a></ul>
+    <ul class="list-group menu"><a class="list-group-item title">{{ user.info.password.email || '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' }}</a><a ng-click="settings.devmode = !settings.devmode" class="list-group-item"> Dev Mode <i ng-show="settings.devmode" class="glyphicon glyphicon-ok"></i></a><a ng-show="user.info.password.email" ng-click="user.unauth()" class="list-group-item">Sign Out</a></ul>
   </div>
 </div>
 <div class="row font-reset">
@@ -15,21 +15,23 @@
 <div class="row space">
   <div class="col-md-3">
     <ul ng-show="settings.devmode">
-      <li ng-repeat="a in aspects.names"><b>{{ a }}</b><b class="text-muted"> {{ responses[a].level }}</b>
+      <li ng-repeat="a in aspects.names"><b>{{ a }}</b><b class="text-muted"> {{ responses[a] }}</b>
         <ul>
           <li ng-repeat="b in aspects.names"><span>{{ b }} : {{ choices.getMRS(b, a) }}</span></li>
         </ul>
       </li>
     </ul>
   </div>
-  <div ng-show="!preamble" class="col-md-6">
+  <div ng-show="!overlap.preamble" class="col-md-6">
     <div class="panel panel-default">
-      <div class="panel-body">In the questions that will follow, we will ask you to compare options involving changes in some of these aspects well-being. When an option involves changes in more than one aspect of well-being, these aspects of well-being may be either totally distinct or they may mean similar things. When two aspects of well-being mean similar things, and both change, please consider the change indicated as being a bigger change only to the extent that two aspects of well-being actually do cover different things. <a ng-click="preamble = true" class="btn btn-primary pull-right space">Continue</a></div>
+      <div class="panel-body">
+        <p class="large">In the questions that will follow, we will ask you to compare options involving changes in different aspects well-being. When an option involves changes in more than one aspect of well-being, these aspects of well-being may be either totally distinct or they may mean similar things. When two aspects of well-being mean similar things, and both change, please consider the change indicated as being a bigger change only to the extent that two aspects of well-being actually do cover different things. </p><a ng-click="hidePreamble()" class="btn btn-primary pull-right space">Continue</a>
+      </div>
     </div>
   </div>
-  <div ng-show="choice &amp;&amp; preamble" class="col-md-6 trade">
+  <div ng-show="choice &amp;&amp; overlap.preamble" class="col-md-6 trade">
     <div class="panel panel-default">
-      <div class="panel-body">Each option either increases or decreases the level of one of the aspects you rated. Please choose which option you would prefer. </div>
+      <div class="panel-body">Each option either increases or decreases the level of one or two of the aspects you rated. Please choose which option you would prefer. </div>
     </div>
     <div class="choices">
       <div class="options clearfix">
@@ -37,20 +39,20 @@
           <div class="option panel panel-default">
             <h3>Option 1</h3>
             <li class="scale active">
-              <h5><span>{{ aspects.texts[overlap.aspects[0]] | capitalize }}</span><span class="pull-right">{{ responses[overlap.aspects[0]].level + choice.tradeoff[0] * 2 | round1 }}</span></h5>
-              <bar name="overlap.aspects[0]" level="responses[overlap.aspects[0]].level" diff="doubled ? choice.tradeoff[0] * 2 : choice.tradeoff[0]"></bar>
+              <h5><span>{{ aspects.texts[abc.aspects[0]] | capitalize }}</span><span class="pull-right">{{ responses[abc.aspects[0]] + choice.tradeoff[0] * 2 | round1 }}</span></h5>
+              <bar name="abc.aspects[0]" level="responses[abc.aspects[0]]" diff="overlap.doubled ? choice.tradeoff[0] * 2 : choice.tradeoff[0]"></bar>
             </li>
             <li class="scale active">
-              <h5><span>{{ aspects.texts[overlap.aspects[1]] | capitalize }}</span><span class="pull-right">{{ responses[overlap.aspects[1]].level }}</span></h5>
-              <bar name="overlap.aspects[1]" level="responses[overlap.aspects[1]].level"></bar>
+              <h5><span>{{ aspects.texts[abc.aspects[1]] | capitalize }}</span><span class="pull-right">{{ responses[abc.aspects[1]] }}</span></h5>
+              <bar name="abc.aspects[1]" level="responses[abc.aspects[1]]"></bar>
             </li>
             <li class="scale active">
-              <h5><span>{{ aspects.texts[overlap.aspects[2]] | capitalize }}</span><span class="pull-right">{{ responses[overlap.aspects[2]].level }}</span></h5>
-              <bar name="overlap.aspects[2]" level="responses[overlap.aspects[2]].level"></bar>
+              <h5><span>{{ aspects.texts[abc.aspects[2]] | capitalize }}</span><span class="pull-right">{{ responses[abc.aspects[2]] }}</span></h5>
+              <bar name="abc.aspects[2]" level="responses[abc.aspects[2]]"></bar>
             </li>
-            <li ng-repeat="aspect in aspects.names" ng-hide="overlap.aspects[0] === aspect || overlap.aspects[1] === aspect || overlap.aspects[2] === aspect" class="scale">
-              <h5><span>{{ aspects.texts[aspect] | capitalize }}</span><span class="pull-right">{{ responses[aspect].level }}</span></h5>
-              <bar name="aspect" level="responses[aspect].level" choice="choice"></bar>
+            <li ng-repeat="aspect in aspects.names" ng-hide="abc.aspects[0] === aspect || abc.aspects[1] === aspect || abc.aspects[2] === aspect" class="scale">
+              <h5><span>{{ aspects.texts[aspect] | capitalize }}</span><span class="pull-right">{{ responses[aspect] }}</span></h5>
+              <bar name="aspect" level="responses[aspect]" choice="choice"></bar>
             </li><br/>
           </div><br/><a class="btn btn-lg light full-width">I Prefer Option 1</a>
         </ul>
@@ -58,20 +60,20 @@
           <div class="option panel panel-default">
             <h3>Option 2</h3>
             <li class="scale active">
-              <h5><span>{{ aspects.texts[overlap.aspects[0]] | capitalize }}</span><span class="pull-right">{{ responses[overlap.aspects[0]].level | round1 }}</span></h5>
-              <bar name="overlap.aspects[0]" level="responses[overlap.aspects[0]].level"></bar>
+              <h5><span>{{ aspects.texts[abc.aspects[0]] | capitalize }}</span><span class="pull-right">{{ responses[abc.aspects[0]] | round1 }}</span></h5>
+              <bar name="abc.aspects[0]" level="responses[abc.aspects[0]]"></bar>
             </li>
             <li class="scale active">
-              <h5><span>{{ aspects.texts[overlap.aspects[1]] | capitalize }}</span><span class="pull-right">{{ responses[overlap.aspects[1]].level + choice.tradeoff[1] }}</span></h5>
-              <bar name="overlap.aspects[1]" level="responses[overlap.aspects[1]].level" diff="choice.tradeoff[1]"></bar>
+              <h5><span>{{ aspects.texts[abc.aspects[1]] | capitalize }}</span><span class="pull-right">{{ responses[abc.aspects[1]] + choice.tradeoff[1] }}</span></h5>
+              <bar name="abc.aspects[1]" level="responses[abc.aspects[1]]" diff="choice.tradeoff[1]"></bar>
             </li>
             <li class="scale active">
-              <h5><span>{{ aspects.texts[overlap.aspects[2]] | capitalize }}</span><span class="pull-right">{{ responses[overlap.aspects[2]].level + choice.tradeoff[1] }}</span></h5>
-              <bar name="overlap.aspects[2]" level="responses[overlap.aspects[2]].level" diff="choice.tradeoff[1]"></bar>
+              <h5><span>{{ aspects.texts[abc.aspects[2]] | capitalize }}</span><span class="pull-right">{{ responses[abc.aspects[2]] + choice.tradeoff[1] }}</span></h5>
+              <bar name="abc.aspects[2]" level="responses[abc.aspects[2]]" diff="choice.tradeoff[1]"></bar>
             </li>
-            <li ng-repeat="aspect in aspects.names" ng-hide="overlap.aspects[0] === aspect || overlap.aspects[1] === aspect || overlap.aspects[2] === aspect" class="scale">
-              <h5><span>{{ aspects.texts[aspect] | capitalize }}</span><span class="pull-right">{{ responses[aspect].level }}</span></h5>
-              <bar name="aspect" level="responses[aspect].level" choice="choice"></bar>
+            <li ng-repeat="aspect in aspects.names" ng-hide="abc.aspects[0] === aspect || abc.aspects[1] === aspect || abc.aspects[2] === aspect" class="scale">
+              <h5><span>{{ aspects.texts[aspect] | capitalize }}</span><span class="pull-right">{{ responses[aspect] }}</span></h5>
+              <bar name="aspect" level="responses[aspect]" choice="choice"></bar>
             </li><br/>
           </div><br/><a class="btn btn-lg light full-width">I Prefer Option 2</a>
         </ul>

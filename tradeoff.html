@@ -6,7 +6,7 @@
         <div class="small pull-right">β </div>What is a Good Life?
       </h1>
     </div>
-    <ul class="list-group menu"><a class="list-group-item title">{{ user.info.password.email || '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' }}</a><a ng-click="settings.devmode = !settings.devmode" class="list-group-item"> Dev Mode <i ng-show="settings.devmode" class="glyphicon glyphicon-ok"></i></a><a ng-show="settings.overlap === 'on'" ng-click="settings.overlap = 'off'" class="list-group-item"> Overlap <i class="glyphicon glyphicon-ok"></i></a><a ng-hide="settings.overlap === 'on'" ng-click="settings.overlap = 'on'" class="list-group-item"> Overlap </a><a ng-show="user.info.email" ng-click="user.logout()" class="list-group-item">Sign Out</a></ul>
+    <ul class="list-group menu"><a class="list-group-item title">{{ user.info.password.email || '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' }}</a><a ng-click="settings.devmode = !settings.devmode" class="list-group-item"> Dev Mode <i ng-show="settings.devmode" class="glyphicon glyphicon-ok"></i></a><a ng-show="user.info.password.email" ng-click="user.unauth()" class="list-group-item">Sign Out</a></ul>
   </div>
 </div>
 <div class="row font-reset">
@@ -15,14 +15,24 @@
 <div class="row space">
   <div class="col-md-3">
     <ul ng-show="settings.devmode">
-      <li ng-repeat="a in aspects.names"><b>{{ a }}</b><b class="text-muted"> {{ responses[a].level }}</b>
+      <li ng-repeat="a in aspects.names"><b>{{ a }}</b><b class="text-muted"> {{ responses[a] }}</b>
         <ul>
           <li ng-repeat="b in aspects.names"><span>{{ b }} : {{ choices.getMRS(b, a) }}</span></li>
         </ul>
       </li>
     </ul>
   </div>
-  <div ng-show="choice" class="col-md-6 trade">
+  <div ng-show="tradeoff.preamble" class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <p class="large">
+          On each of the following 
+          screens, we will ask you to choose between two different ways in which your life might change. On each screen you will have two options to choose from. In each option, levels of some of the aspects of your life that you have just rated will either increase or decrease.
+        </p><a ng-click="hidePreamble()" class="btn btn-primary pull-right space">Continue</a>
+      </div>
+    </div>
+  </div>
+  <div ng-show="choice &amp;&amp; !tradeoff.preamble" class="col-md-6 trade">
     <div class="panel panel-default">
       <div class="panel-body">Each option either increases or decreases the level of one of the aspects you rated. Please choose which option you would prefer. </div>
     </div>
@@ -32,16 +42,16 @@
           <div class="option panel panel-default">
             <h3>Option 1</h3>
             <li class="scale active">
-              <h5><span>{{ aspects.texts[choice.aspects[0]] | capitalize }}</span><span class="pull-right">{{ responses[choice.aspects[0]].level + choice.tradeoff[0] | round1 }}</span></h5>
-              <bar name="choice.aspects[0]" level="responses[choice.aspects[0]].level" diff="choice.tradeoff[0]"></bar>
+              <h5><span>{{ aspects.texts[choice.aspects[0]] | capitalize }}</span><span class="pull-right">{{ responses[choice.aspects[0]] + choice.tradeoff[0] | round1 }}</span></h5>
+              <bar name="choice.aspects[0]" level="responses[choice.aspects[0]]" diff="choice.tradeoff[0]"></bar>
             </li>
             <li class="scale active">
-              <h5><span>{{ aspects.texts[choice.aspects[1]] | capitalize }}</span><span class="pull-right">{{ responses[choice.aspects[1]].level }}</span></h5>
-              <bar name="choice.aspects[1]" level="responses[choice.aspects[1]].level"></bar>
+              <h5><span>{{ aspects.texts[choice.aspects[1]] | capitalize }}</span><span class="pull-right">{{ responses[choice.aspects[1]] }}</span></h5>
+              <bar name="choice.aspects[1]" level="responses[choice.aspects[1]]"></bar>
             </li>
             <li ng-repeat="aspect in aspects.names" ng-hide="choice.aspects[0] === aspect || choice.aspects[1] === aspect" class="scale">
-              <h5><span>{{ aspects.texts[aspect] | capitalize }}</span><span class="pull-right">{{ responses[aspect].level }}</span></h5>
-              <bar name="aspect" level="responses[aspect].level" choice="choice"></bar>
+              <h5><span>{{ aspects.texts[aspect] | capitalize }}</span><span class="pull-right">{{ responses[aspect] }}</span></h5>
+              <bar name="aspect" level="responses[aspect]" choice="choice"></bar>
             </li><br/>
           </div><br/><a class="btn btn-lg light full-width">I Prefer Option 1</a>
         </ul>
@@ -49,16 +59,16 @@
           <div class="option panel panel-default">
             <h3>Option 2</h3>
             <li class="scale active">
-              <h5><span>{{ aspects.texts[choice.aspects[0]] | capitalize }}</span><span class="pull-right">{{ responses[choice.aspects[0]].level | round1 }}</span></h5>
-              <bar name="choice.aspects[0]" level="responses[choice.aspects[0]].level"></bar>
+              <h5><span>{{ aspects.texts[choice.aspects[0]] | capitalize }}</span><span class="pull-right">{{ responses[choice.aspects[0]] | round1 }}</span></h5>
+              <bar name="choice.aspects[0]" level="responses[choice.aspects[0]]"></bar>
             </li>
             <li class="scale active">
-              <h5><span>{{ aspects.texts[choice.aspects[1]] | capitalize }}</span><span class="pull-right">{{ responses[choice.aspects[1]].level + choice.tradeoff[1] }}</span></h5>
-              <bar name="choice.aspects[1]" level="responses[choice.aspects[1]].level" diff="choice.tradeoff[1]"></bar>
+              <h5><span>{{ aspects.texts[choice.aspects[1]] | capitalize }}</span><span class="pull-right">{{ responses[choice.aspects[1]] + choice.tradeoff[1] }}</span></h5>
+              <bar name="choice.aspects[1]" level="responses[choice.aspects[1]]" diff="choice.tradeoff[1]"></bar>
             </li>
             <li ng-repeat="aspect in aspects.names" ng-hide="choice.aspects[0] === aspect || choice.aspects[1] === aspect" class="scale">
-              <h5><span>{{ aspects.texts[aspect] | capitalize }}</span><span class="pull-right">{{ responses[aspect].level }}</span></h5>
-              <bar name="aspect" level="responses[aspect].level" choice="choice"></bar>
+              <h5><span>{{ aspects.texts[aspect] | capitalize }}</span><span class="pull-right">{{ responses[aspect] }}</span></h5>
+              <bar name="aspect" level="responses[aspect]" choice="choice"></bar>
             </li><br/>
           </div><br/><a class="btn btn-lg light full-width">I Prefer Option 2</a>
         </ul>

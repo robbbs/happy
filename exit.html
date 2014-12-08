@@ -1,0 +1,51 @@
+
+<div class="row topbar">
+  <div class="col-md-6 col-md-offset-3">
+    <div class="logo">
+      <h1 class="align-right">
+        <div class="small pull-right">β </div>What is a Good Life?
+      </h1>
+    </div>
+    <ul class="list-group menu"><a class="list-group-item title">{{ user.info.password.email || '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' }}</a><a ng-click="settings.devmode = !settings.devmode" class="list-group-item"> Dev Mode <i ng-show="settings.devmode" class="glyphicon glyphicon-ok"></i></a><a ng-show="user.info.password.email" ng-click="user.unauth()" class="list-group-item">Sign Out</a></ul>
+  </div>
+</div>
+<div class="row font-reset">
+  <prog complete="1"></prog>
+</div>
+<div class="row space">
+  <div class="col-md-4 col-md-offset-4">
+    <div ng-hide="satisfaction.submitted" class="panel panel-default">
+      <div class="panel-body">
+        <h2>Thank You!</h2>
+        <p>Thanks for completing our survey. Please let us know about your experience participating in this study. </p>
+        <p>On a scale from 0 to 100, how would you rate your experience overall?</p>
+        <range level="satisfaction.level"></range>
+        <bar name="aspects.names[0]" level="satisfaction.level"></bar>
+        <div class="space"></div>
+        <p>Any bugs or issues you ran into while taking the survey?</p>
+        <textarea style="max-width:100%;" ng-model="satisfaction.comments" class="form-control"></textarea><a ng-click="satisfaction.submit()" class="btn btn-primary pull-right space">Submit</a>
+      </div>
+    </div>
+    <div ng-show="satisfaction.submitted" class="panel panel-default">
+      <div class="panel-body">
+        <h2>Thank You!</h2>
+        <p>Thanks for submitting your feedback. If you'd like to, please continue with another survey below:</p>
+        <div ng-click="loc.path(&quot;threetwo/survey&quot;)" ng-hide="loc.path().split(&quot;/&quot;)[1] == &quot;threetwo&quot;" class="row full-btn">
+          <div class="vertical-align"><i class="glyphicon glyphicon-chevron-right"></i></div>
+          <h4><b>Value Weighting</b></h4>
+          <p>Which values are the most important to you?</p>
+        </div>
+        <div ng-click="loc.path(&quot;overlap/survey&quot;)" ng-hide="loc.path().split(&quot;/&quot;)[1] == &quot;overlap&quot;" class="row full-btn">
+          <div class="vertical-align"><i class="glyphicon glyphicon-chevron-right"></i></div>
+          <h4><b>Overlap</b></h4>
+          <p>How do different values relate for you?</p>
+        </div>
+        <div ng-click="loc.path(&quot;fineoverlap/survey&quot;)" ng-hide="loc.path().split(&quot;/&quot;)[1] == &quot;fineoverlap&quot;" class="row full-btn">
+          <div class="vertical-align"><i class="glyphicon glyphicon-chevron-right"></i></div>
+          <h4><b>Finer Overlap</b></h4>
+          <p>How do different values relate for you? A finer measurement.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
