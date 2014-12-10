@@ -1,0 +1,76 @@
+
+<div class="row topbar">
+  <div class="col-md-6 col-md-offset-3">
+    <div class="logo">
+      <h1 class="align-right">
+        <div class="small pull-right">β </div>What is a Good Life?
+      </h1>
+    </div>
+    <ul class="list-group menu"><a class="list-group-item title">{{ user.info.password.email || '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' }}</a><a ng-click="settings.devmode = !settings.devmode" class="list-group-item"> Dev Mode <i ng-show="settings.devmode" class="glyphicon glyphicon-ok"></i></a><a ng-show="user.info.password.email" ng-click="user.unauth()" class="list-group-item">Sign Out</a></ul>
+  </div>
+</div>
+<div class="row font-reset">
+  <prog complete="completed"></prog>
+</div>
+<div class="row space">
+  <div class="col-md-3">
+    <ul ng-show="settings.devmode">
+      <li ng-repeat="a in aspects.names"><b>{{ a }}</b><b class="text-muted"> {{ responses[a] }}</b>
+        <ul>
+          <li ng-repeat="b in aspects.names"><span>{{ b }} : {{ choices.getMRS(b, a) }}</span></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <div ng-show="tradeoff.preamble" class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <p class="large">
+          On each of the following 
+          screens, we will ask you to choose between two different ways in which your life might change. On each screen you will have two options to choose from. In each option, levels of some of the aspects of your life that you have just rated will either increase or decrease.
+        </p><a ng-click="hidePreamble()" class="btn btn-primary pull-right space">Continue</a>
+      </div>
+    </div>
+  </div>
+  <div ng-show="choice &amp;&amp; !tradeoff.preamble" class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-body">Each option either increases or decreases the level of one of the aspects you rated. Please choose which option you would prefer.</div>
+    </div>
+    <div class="parent"> 
+      <div class="scenario space">
+        <div ng-mouseover="options.highlight(1)" ng-mouseleave="options.reset()" ng-click="options.select(1)" ng-class="{ nochoice: !options.choice }" class="row option">
+          <div class="col-xs-3 full-height">
+            <div class="vertical-align-left">
+              <h4><b>Option 1</b></h4>
+            </div>
+            <div class="vertical-align-right">
+              <input type="radio" ng-checked="options.choice === 1"/>
+            </div>
+          </div>
+          <div class="col-xs-8">
+            <li class="scale active">
+              <h5><span>{{ aspects.texts[choice.aspects[0]] | capitalize }}</span><span class="pull-right">{{ responses[choice.aspects[0]] + options.one | round1 }}</span></h5>
+              <bar name="choice.aspects[0]" level="responses[choice.aspects[0]]" diff="options.one"></bar>
+            </li>
+          </div>
+        </div>
+        <div ng-mouseover="options.highlight(2)" ng-mouseleave="options.reset()" ng-click="options.select(2)" ng-class="{ nochoice: !options.choice }" class="row option">
+          <div class="col-xs-3 full-height">
+            <div class="vertical-align-left">
+              <h4><b>Option 2</b></h4>
+            </div>
+            <div class="vertical-align-right">
+              <input type="radio" ng-checked="options.choice === 2"/>
+            </div>
+          </div>
+          <div class="col-xs-8">
+            <li class="scale active">
+              <h5><span>{{ aspects.texts[choice.aspects[1]]| capitalize }}</span><span class="pull-right">{{ responses[choice.aspects[1]] + options.two }}</span></h5>
+              <bar name="choice.aspects[1]" level="responses[choice.aspects[1]]" diff="options.two"></bar>
+            </li>
+          </div>
+        </div>
+      </div>
+    </div><a ng-click="choose()" ng-show="options.choice" class="btn btn-primary pull-right space">Next</a>
+  </div>
+</div>
