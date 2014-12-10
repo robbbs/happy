@@ -14,6 +14,12 @@
 </div>
 <div class="row space">
   <div class="col-md-3">
+    <div ng-show="settings.instruct" class="panel panel-default">
+      <div class="panel-body">
+        <p><b>Instructions</b></p>
+        <p>Each option either increases or decreases the level of one of the aspects you rated. Please choose which option you would prefer.</p><a ng-click="settings.instruct = false" class="btn btn-default pull-right">Got It</a>
+      </div>
+    </div>
     <ul ng-show="settings.devmode">
       <li ng-repeat="a in aspects.names"><b>{{ a }}</b><b class="text-muted"> {{ responses[a] }}</b>
         <ul>
@@ -33,41 +39,52 @@
     </div>
   </div>
   <div ng-show="choice &amp;&amp; !tradeoff.preamble" class="col-md-6">
-    <div class="panel panel-default">
-      <div class="panel-body">Each option either increases or decreases the level of one of the aspects you rated. Please choose which option you would prefer.</div>
-    </div>
     <div class="parent"> 
       <div class="scenario space">
-        <div ng-mouseover="options.highlight(1)" ng-mouseleave="options.reset()" ng-click="options.select(1)" ng-class="{ nochoice: !options.choice }" class="row option">
-          <div class="col-xs-3 full-height">
-            <div class="vertical-align-left">
-              <h4><b>Option 1</b></h4>
-            </div>
+        <div class="row aspects">
+          <div class="col-xs-5">
+            <h4 class="pad"><i>{{ aspects.texts[choice.aspects[0]] | capitalize }}</i></h4>
+          </div>
+          <div class="col-xs-5">
+            <h4 class="pad"><i>{{ aspects.texts[choice.aspects[1]] | capitalize }}</i></h4>
+          </div>
+        </div>
+        <div style="margin-top:-2em;padding-right:15px;" class="row">
+          <h4 class="pull-right"><b>Option 1</b></h4>
+        </div>
+        <div ng-click="options.select(1)" class="row option">
+          <div class="col-xs-5">
+            <li class="scale active"><span class="pull-right">{{ responses[choice.aspects[0]] + choice.tradeoff[0] | round1 }}</span>
+              <bar choice="choice" name="choice.aspects[0]" level="responses[choice.aspects[0]]" diff="choice.tradeoff[0]"></bar>
+            </li>
+          </div>
+          <div class="col-xs-5">
+            <li class="scale active"><span class="pull-right">{{ responses[choice.aspects[1]] | round1 }}</span>
+              <bar choice="choice" name="choice.aspects[1]" level="responses[choice.aspects[1]]"></bar>
+            </li>
+          </div>
+          <div class="col-xs-2 full-height">
             <div class="vertical-align-right">
               <input type="radio" ng-checked="options.choice === 1"/>
             </div>
           </div>
-          <div class="col-xs-8">
-            <li class="scale active">
-              <h5><span>{{ aspects.texts[choice.aspects[0]] | capitalize }}</span><span class="pull-right">{{ responses[choice.aspects[0]] + options.one | round1 }}</span></h5>
-              <bar name="choice.aspects[0]" level="responses[choice.aspects[0]]" diff="options.one"></bar>
+        </div>
+        <h4 class="align-right"><b>Option 2</b></h4>
+        <div ng-click="options.select(2)" class="row option">
+          <div class="col-xs-5">
+            <li class="scale active"><span class="pull-right">{{ responses[choice.aspects[0]] | round1 }}</span>
+              <bar choice="choice" name="choice.aspects[0]" level="responses[choice.aspects[0]]"></bar>
             </li>
           </div>
-        </div>
-        <div ng-mouseover="options.highlight(2)" ng-mouseleave="options.reset()" ng-click="options.select(2)" ng-class="{ nochoice: !options.choice }" class="row option">
-          <div class="col-xs-3 full-height">
-            <div class="vertical-align-left">
-              <h4><b>Option 2</b></h4>
-            </div>
+          <div class="col-xs-5">
+            <li class="scale active"><span class="pull-right">{{ responses[choice.aspects[1]] + choice.tradeoff[1] }}</span>
+              <bar choice="choice" name="choice.aspects[1]" level="responses[choice.aspects[1]]" diff="choice.tradeoff[1]"></bar>
+            </li>
+          </div>
+          <div class="col-xs-2 full-height">
             <div class="vertical-align-right">
               <input type="radio" ng-checked="options.choice === 2"/>
             </div>
-          </div>
-          <div class="col-xs-8">
-            <li class="scale active">
-              <h5><span>{{ aspects.texts[choice.aspects[1]]| capitalize }}</span><span class="pull-right">{{ responses[choice.aspects[1]] + options.two }}</span></h5>
-              <bar name="choice.aspects[1]" level="responses[choice.aspects[1]]" diff="options.two"></bar>
-            </li>
           </div>
         </div>
       </div>
