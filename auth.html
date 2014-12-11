@@ -1,9 +1,12 @@
 
 <div class="row">
-  <div class="col-xs-4">
-    <h4>Sign up to track your own personal well-being index! </h4>
-    <p ng-hide="login.show" class="text-muted">Already a member?<a ng-click="login.show = true"> Log in</a> instead.</p>
-    <p ng-show="login.show" class="text-muted">Not yet a member?<a ng-click="login.show = false"> Sign up</a> instead.</p>
+  <div class="col-xs-4 menu">
+    <div ng-click="login.show = false" ng-class="{ selected: !login.show }" class="row full-btn">
+      <h4>Sign Up</h4>
+    </div>
+    <div ng-click="login.show = true" ng-class="{ selected: login.show }" class="row full-btn">
+      <h4>Sign In</h4>
+    </div>
   </div>
   <div ng-hide="login.show" class="col-xs-8">
     <div ng-show="signup.wrong === 'INVALID_EMAIL'" class="alert alert-danger">Please enter a valid email address</div>
