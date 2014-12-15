@@ -38,18 +38,18 @@
         <ul ng-click="choose(1)" class="col-xs-6">
           <div class="option panel panel-default">
             <h3>Option 1</h3>
-            <li ng-repeat="i in [0,1,2]" ng-class="{ active: choice.tradeoff[i] }" class="scale"><span><b class="pull-right pad">{{ i === 0 ? choice.tradeoff[0] + responses[aspects.names[0]] :  responses[aspects.names[i]] | round1 }}</b>
+            <li ng-repeat="i in [0,1,2]" ng-class="{ active: choice.tradeoff[i] }" class="scale"><span><b class="pull-right pad">{{ i === 0 ? cue.deltaOne + responses[aspects.names[0]] :  responses[aspects.names[i]] | round1 }}</b>
                 <p><i>{{ aspects.texts[aspects.names[i]] | capitalize }}</i></p></span>
-              <diff option="one" animate="cue.option" choice="choice" name="aspects.names[i]" level="responses[aspects.names[i]]" diff="i === 0 ? choice.tradeoff[0] : 0"></diff>
+              <diff option="one" animate="cue.option" choice="choice" name="aspects.names[i]" level="responses[aspects.names[i]]" diff="i === 0 ? choice.tradeoff[0] : 0" delta="cue.deltaOne"></diff>
             </li><br/>
           </div><br/><a class="btn btn-lg light full-width">I Prefer Option 1</a>
         </ul>
         <ul ng-click="choose(2)" class="col-xs-6">
           <div class="option panel panel-default">
             <h3>Option 2</h3>
-            <li ng-repeat="i in [0,1,2]" ng-class="{ active: choice.tradeoff[i] }" class="scale"><span><b class="pull-right pad">{{ i > 0 ? responses[aspects.names[i]] + choice.tradeoff[i] : responses[aspects.names[i]] | round1 }}</b>
+            <li ng-repeat="i in [0,1,2]" ng-class="{ active: choice.tradeoff[i] }" class="scale"><span><b class="pull-right pad">{{ i > 0 ? responses[aspects.names[i]] + cue.deltaTwo : responses[aspects.names[i]] | round1 }}</b>
                 <p><i>{{ aspects.texts[aspects.names[i]] | capitalize }}</i></p></span>
-              <diff option="two" animate="cue.option" choice="choice" name="aspects.names[i]" level="responses[aspects.names[i]]" diff="i &gt; 0 &amp;&amp; choice.tradeoff[i] ? choice.tradeoff[i] : 0"></diff>
+              <diff option="two" animate="cue.option" choice="choice" name="aspects.names[i]" level="responses[aspects.names[i]]" diff="i &gt; 0 &amp;&amp; choice.tradeoff[i] ? choice.tradeoff[i] : 0" delta="cue.deltaTwo"></diff>
             </li><br/>
           </div><br/><a class="btn btn-lg light full-width">I Prefer Option 2</a>
         </ul>
