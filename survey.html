@@ -10,14 +10,15 @@
   </div>
 </div>
 <div class="row space">
-  <ul class="col-md-6 col-md-offset-3">
-    <div class="panel panel-default">
-      <div class="panel-body">On a scale from 0 to 100, where 0 is the lowest possible rating and 100 is the highest possible rating, how would you rate the following aspects of your life?</div>
-    </div>
-    <li ng-repeat="aspect in aspects.names" class="slide">
-      <h5><span>{{ aspects.texts[aspect] | capitalize }}</span><span class="pull-right">{{ responses[aspect] }}</span></h5>
-      <range level="responses[aspect]"></range>
-      <bar name="aspect" level="responses[aspect]"></bar>
-    </li><br/><a ng-click="next()" ng-show="survey.finished" class="btn btn-primary pull-right">Next</a>
-  </ul>
+  <div class="col-md-6 col-md-offset-3">
+    <ul class="survey">
+      <div class="panel panel-default">
+        <div class="panel-body">On a scale from 0 to 100, where 0 is the lowest possible rating and 100 is the highest possible rating, how would you rate the following aspects of your life?</div>
+      </div>
+      <li ng-repeat="aspect in aspects.names" class="slide space"><span><i>{{ aspects.texts[aspect] | capitalize }}</i><b class="pull-right">{{ responses[aspect] }}</b></span>
+        <range level="responses[aspect]"></range>
+        <bar name="aspect" level="responses[aspect]"></bar>
+      </li><br/><a ng-click="next()" ng-show="survey.finished" class="btn btn-primary pull-right">Next</a>
+    </ul>
+  </div>
 </div>

@@ -38,42 +38,42 @@
         <ul ng-click="choose(choice.i *  2 + 1)" class="col-xs-6">
           <div class="option panel panel-default">
             <h3>Option 1</h3>
-            <li class="scale active">
-              <h5><span>{{ aspects.texts[abc.aspects[0]] | capitalize }}</span><span class="pull-right">{{ responses[abc.aspects[0]] + choice.tradeoff[0] * 2 | round1 }}</span></h5>
-              <bar name="abc.aspects[0]" level="responses[abc.aspects[0]]" diff="overlap.doubled ? choice.tradeoff[0] * 2 : choice.tradeoff[0]"></bar>
+            <li class="scale active"><span><b class="pull-right pad-right">{{ responses[abc.aspects[0]] + choice.tradeoff[0] * 2 | round1 }}</b>
+                <p><i>{{ aspects.texts[abc.aspects[0]] | capitalize }}</i></p></span>
+              <diff option="one" animate="cue.option" choice="choice" name="abc.aspects[0]" level="responses[abc.aspects[0]]" diff="overlap.doubled ? choice.tradeoff[0] * 2 : choice.tradeoff[0]"></diff>
             </li>
-            <li class="scale active">
-              <h5><span>{{ aspects.texts[abc.aspects[1]] | capitalize }}</span><span class="pull-right">{{ responses[abc.aspects[1]] }}</span></h5>
-              <bar name="abc.aspects[1]" level="responses[abc.aspects[1]]"></bar>
+            <li class="scale active"><span><b class="pull-right pad-right">{{ responses[abc.aspects[1]] }}</b>
+                <p><i>{{ aspects.texts[abc.aspects[1]] | capitalize }}</i></p></span>
+              <diff choice="choice" name="abc.aspects[1]" level="responses[abc.aspects[1]]"></diff>
             </li>
-            <li class="scale active">
-              <h5><span>{{ aspects.texts[abc.aspects[2]] | capitalize }}</span><span class="pull-right">{{ responses[abc.aspects[2]] }}</span></h5>
-              <bar name="abc.aspects[2]" level="responses[abc.aspects[2]]"></bar>
+            <li class="scale active"><span><b class="pull-right pad-right">{{ responses[abc.aspects[2]] }}</b>
+                <p><i>{{ aspects.texts[abc.aspects[2]] | capitalize }}</i></p></span>
+              <diff choice="choice" name="abc.aspects[2]" level="responses[abc.aspects[2]]"></diff>
             </li>
-            <li ng-repeat="aspect in aspects.names" ng-hide="abc.aspects[0] === aspect || abc.aspects[1] === aspect || abc.aspects[2] === aspect" class="scale">
-              <h5><span>{{ aspects.texts[aspect] | capitalize }}</span><span class="pull-right">{{ responses[aspect] }}</span></h5>
-              <bar name="aspect" level="responses[aspect]" choice="choice"></bar>
+            <li ng-repeat="aspect in aspects.names" ng-hide="abc.aspects[0] === aspect || abc.aspects[1] === aspect || abc.aspects[2] === aspect" class="scale"><span><b class="pull-right pad-right">{{ responses[aspect] }}</b>
+                <p><i>{{ aspects.texts[aspect] | capitalize }}</i></p></span>
+              <diff choice="choice" name="aspect" level="responses[aspect]"></diff>
             </li><br/>
           </div><br/><a class="btn btn-lg light full-width">I Prefer Option 1</a>
         </ul>
         <ul ng-click="choose(choice.i *  2 + 2)" class="col-xs-6">
           <div class="option panel panel-default">
             <h3>Option 2</h3>
-            <li class="scale active">
-              <h5><span>{{ aspects.texts[abc.aspects[0]] | capitalize }}</span><span class="pull-right">{{ responses[abc.aspects[0]] | round1 }}</span></h5>
-              <bar name="abc.aspects[0]" level="responses[abc.aspects[0]]"></bar>
+            <li class="scale active"><span><b class="pull-right pad-right">{{ responses[abc.aspects[0]] | round1 }}</b>
+                <p><i>{{ aspects.texts[abc.aspects[0]] | capitalize }}</i></p></span>
+              <diff choice="choice" name="abc.aspects[0]" level="responses[abc.aspects[0]]"></diff>
             </li>
-            <li class="scale active">
-              <h5><span>{{ aspects.texts[abc.aspects[1]] | capitalize }}</span><span class="pull-right">{{ responses[abc.aspects[1]] + choice.tradeoff[1] }}</span></h5>
-              <bar name="abc.aspects[1]" level="responses[abc.aspects[1]]" diff="choice.tradeoff[1]"></bar>
+            <li class="scale active"><span><b class="pull-right pad-right">{{ responses[abc.aspects[1]] + choice.tradeoff[1] }}</b>
+                <p><i>{{ aspects.texts[abc.aspects[1]] | capitalize }}</i></p></span>
+              <diff option="two" animate="cue.option" choice="choice" name="abc.aspects[1]" level="responses[abc.aspects[1]]" diff="choice.tradeoff[1]"></diff>
             </li>
-            <li class="scale active">
-              <h5><span>{{ aspects.texts[abc.aspects[2]] | capitalize }}</span><span class="pull-right">{{ responses[abc.aspects[2]] + choice.tradeoff[1] }}</span></h5>
-              <bar name="abc.aspects[2]" level="responses[abc.aspects[2]]" diff="choice.tradeoff[1]"></bar>
+            <li class="scale active"><span><b class="pull-right pad-right">{{ responses[abc.aspects[2]] + choice.tradeoff[1] }}</b>
+                <p><i>{{ aspects.texts[abc.aspects[2]] | capitalize }}</i></p></span>
+              <diff option="two" animate="cue.option" choice="choice" name="abc.aspects[2]" level="responses[abc.aspects[2]]" diff="choice.tradeoff[1]"></diff>
             </li>
-            <li ng-repeat="aspect in aspects.names" ng-hide="abc.aspects[0] === aspect || abc.aspects[1] === aspect || abc.aspects[2] === aspect" class="scale">
-              <h5><span>{{ aspects.texts[aspect] | capitalize }}</span><span class="pull-right">{{ responses[aspect] }}</span></h5>
-              <bar name="aspect" level="responses[aspect]" choice="choice"></bar>
+            <li ng-repeat="aspect in aspects.names" ng-hide="abc.aspects[0] === aspect || abc.aspects[1] === aspect || abc.aspects[2] === aspect" class="scale"><span><b class="pull-right pad-right">{{ responses[aspect] }}</b>
+                <p><i>{{ aspects.texts[aspect] | capitalize }}</i></p></span>
+              <diff choice="choice" name="aspect" level="responses[aspect]"></diff>
             </li><br/>
           </div><br/><a class="btn btn-lg light full-width">I Prefer Option 2</a>
         </ul>

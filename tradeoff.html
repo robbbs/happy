@@ -41,34 +41,34 @@
         <ul ng-click="choose(choice.i *  2 + 1)" class="col-xs-6">
           <div class="option panel panel-default">
             <h3>Option 1</h3>
-            <li class="scale active">
-              <h5><span>{{ aspects.texts[choice.aspects[0]] | capitalize }}</span><span class="pull-right">{{ responses[choice.aspects[0]] + choice.tradeoff[0] | round1 }}</span></h5>
-              <bar name="choice.aspects[0]" level="responses[choice.aspects[0]]" diff="choice.tradeoff[0]"></bar>
+            <li class="scale active"><span><b class="pull-right pad">{{ responses[choice.aspects[0]] + choice.tradeoff[0] | round1 }}</b>
+                <p><i>{{ aspects.texts[choice.aspects[0]] | capitalize }}</i></p></span>
+              <diff option="one" animate="cue.option" choice="choice" name="choice.aspects[0]" level="responses[choice.aspects[0]]" diff="choice.tradeoff[0]"></diff>
             </li>
-            <li class="scale active">
-              <h5><span>{{ aspects.texts[choice.aspects[1]] | capitalize }}</span><span class="pull-right">{{ responses[choice.aspects[1]] }}</span></h5>
-              <bar name="choice.aspects[1]" level="responses[choice.aspects[1]]"></bar>
+            <li class="scale active"><span><b class="pull-right pad">{{ responses[choice.aspects[1]] }}</b>
+                <p><i>{{ aspects.texts[choice.aspects[1]] | capitalize }}</i></p></span>
+              <diff name="choice.aspects[1]" level="responses[choice.aspects[1]]"></diff>
             </li>
-            <li ng-repeat="aspect in aspects.names" ng-hide="choice.aspects[0] === aspect || choice.aspects[1] === aspect" class="scale">
-              <h5><span>{{ aspects.texts[aspect] | capitalize }}</span><span class="pull-right">{{ responses[aspect] }}</span></h5>
-              <bar name="aspect" level="responses[aspect]" choice="choice"></bar>
+            <li ng-repeat="aspect in aspects.names" ng-hide="choice.aspects[0] === aspect || choice.aspects[1] === aspect" class="scale"><span><b class="pull-right pad">{{ responses[aspect] }}</b>
+                <p><i>{{ aspects.texts[aspect] | capitalize }}</i></p></span>
+              <bar name="aspect" level="responses[aspect]"></bar>
             </li><br/>
           </div><br/><a class="btn btn-lg light full-width">I Prefer Option 1</a>
         </ul>
         <ul ng-click="choose(choice.i *  2 + 2)" class="col-xs-6">
           <div class="option panel panel-default">
             <h3>Option 2</h3>
-            <li class="scale active">
-              <h5><span>{{ aspects.texts[choice.aspects[0]] | capitalize }}</span><span class="pull-right">{{ responses[choice.aspects[0]] | round1 }}</span></h5>
-              <bar name="choice.aspects[0]" level="responses[choice.aspects[0]]"></bar>
+            <li class="scale active"><span><b class="pull-right pad">{{ responses[choice.aspects[0]] | round1 }}</b>
+                <p><i>{{ aspects.texts[choice.aspects[0]] | capitalize }}</i></p></span>
+              <diff name="choice.aspects[0]" level="responses[choice.aspects[0]]"></diff>
             </li>
-            <li class="scale active">
-              <h5><span>{{ aspects.texts[choice.aspects[1]] | capitalize }}</span><span class="pull-right">{{ responses[choice.aspects[1]] + choice.tradeoff[1] }}</span></h5>
-              <bar name="choice.aspects[1]" level="responses[choice.aspects[1]]" diff="choice.tradeoff[1]"></bar>
+            <li class="scale active"><span><b class="pull-right pad">{{ responses[choice.aspects[1]] + choice.tradeoff[1] }}</b>
+                <p><i>{{ aspects.texts[choice.aspects[1]] | capitalize }}</i></p></span>
+              <diff option="two" animate="cue.option" choice="choice" name="choice.aspects[1]" level="responses[choice.aspects[1]]" diff="choice.tradeoff[1]"></diff>
             </li>
-            <li ng-repeat="aspect in aspects.names" ng-hide="choice.aspects[0] === aspect || choice.aspects[1] === aspect" class="scale">
-              <h5><span>{{ aspects.texts[aspect] | capitalize }}</span><span class="pull-right">{{ responses[aspect] }}</span></h5>
-              <bar name="aspect" level="responses[aspect]" choice="choice"></bar>
+            <li ng-repeat="aspect in aspects.names" ng-hide="choice.aspects[0] === aspect || choice.aspects[1] === aspect" class="scale"><span><b class="pull-right pad">{{ responses[aspect] }}</b>
+                <p><i>{{ aspects.texts[aspect] | capitalize }}</i></p></span>
+              <bar name="aspect" level="responses[aspect]"></bar>
             </li><br/>
           </div><br/><a class="btn btn-lg light full-width">I Prefer Option 2</a>
         </ul>

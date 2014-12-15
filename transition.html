@@ -1,0 +1,22 @@
+
+<div class="row topbar">
+  <div class="col-md-6 col-md-offset-3">
+    <div class="logo">
+      <h1 class="align-right">
+        <div class="small pull-right">β </div>What is a Good Life?
+      </h1>
+    </div>
+    <ul class="list-group menu"><a class="list-group-item title">{{ user.info.password.email || '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' }}</a><a ng-click="settings.devmode = !settings.devmode" class="list-group-item"> Dev Mode <i ng-show="settings.devmode" class="glyphicon glyphicon-ok"></i></a><a ng-show="user.info.password.email" ng-click="user.unauth()" class="list-group-item">Sign Out</a></ul>
+  </div>
+</div>
+<div class="row space">
+  <ul class="col-md-6 col-md-offset-3">
+    <div class="panel panel-default">
+      <div class="panel-body">On a scale from 0 to 100, where 0 is the lowest possible rating and 100 is the highest possible rating, how would you rate the following aspects of your life?</div>
+    </div>
+    <li ng-repeat="aspect in aspects.names" class="slide space"><span><i>{{ aspects.texts[aspect] | capitalize }}</i><b class="pull-right">{{ responses[aspect] }}</b></span>
+      <range level="responses[aspect]"></range>
+      <bar name="aspect" level="responses[aspect]"></bar>
+    </li><br/>
+  </ul>
+</div>
