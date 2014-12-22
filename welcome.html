@@ -1,9 +1,0 @@
-
-<div class="logo">
-  <h1 class="align-right">
-    <div class="small pull-right">β</div>What is a Good Life?
-  </h1>
-</div>
-<p>What is a good life <i>for you? </i>Answer our questions to track your own well-being the way <i>you </i>see it.</p>
-<div ng-show="!user.info().email" class="auth clearfix"><a ng-click="splash.url = 'login.html'" class="btn pull-right">Login</a><a ng-click="splash.url = 'signup.html'" class="btn pull-right">Sign Up</a></div>
-<div ng-show="user.info().email" class="auth clearfix"><span class="email pull-left">{{ user.info().email }}</span><a href="#/survey" class="btn pull-right">Continue</a><a ng-click="user.logout()" class="btn pull-right">Sign Out</a></div>

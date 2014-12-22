@@ -1,0 +1,61 @@
+
+<div class="pointer"><i class="glyphicon glyphicon-hand-up"></i></div>
+<div ng-hide="instructions.highlightOne" class="dark-overlay"></div>
+<div class="row topbar">
+  <div class="col-md-6 col-md-offset-3">
+    <div class="logo">
+      <h1 class="align-right">
+        <div class="small pull-right">β </div>What is a Good Life?
+      </h1>
+    </div>
+    <ul class="list-group menu"><a class="list-group-item title">{{ user.info.password.email || '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' }}</a><a ng-click="settings.devmode = !settings.devmode" class="list-group-item"> Dev Mode <i ng-show="settings.devmode" class="glyphicon glyphicon-ok"></i></a><a ng-show="user.info.password.email" ng-click="user.unauth()" class="list-group-item">Sign Out</a></ul>
+  </div>
+</div>
+<div class="row instructions space">
+  <div class="col-md-3"></div>
+  <div class="col-md-6">
+    <div ng-if="instructions.partOne" ng-class="{ highlight: !instructions.partTwo }" class="panel panel-default highlight">
+      <div class="panel-body"><a ng-click="instructions.next()" class="btn btn-primary pull-right">Skip Instructions</a>Suppose one of the aspects you rated increased or decreased. That's Option 1.</div>
+    </div>
+    <div ng-if="instructions.partThree" ng-class="{ highlight: !instructions.partFour }" class="panel panel-default highlight">
+      <div class="panel-body"><a ng-click="instructions.next()" class="btn btn-primary pull-right">Skip Instructions</a>Option 2 changes another aspect you rated. </div>
+    </div>
+    <div ng-if="instructions.partFive" class="panel panel-default highlight">
+      <div class="panel-body"><a ng-click="instructions.next()" class="btn btn-primary pull-right">Skip Instructions</a>Which would you choose?</div>
+    </div>
+  </div>
+</div>
+<div class="row space"></div>
+<div class="row space">
+  <div class="col-md-3"></div>
+  <div class="col-md-3 col-xs-6">
+    <div ng-if="instructions.partTwo" ng-class="{ highlight: !instructions.partThree &amp;&amp; !instructions.partFive || instructions.highlightOne }" class="option left">
+      <div class="panel panel-default">
+        <h3>Option 1</h3>
+        <li class="scale active space"><span><b class="pull-right pad">{{ 50 + cue.deltaOne }}</b>
+            <p><i>{{ aspects.texts[aspects.names[0]] | capitalize }}</i></p></span>
+          <diff option="one" animate="cue.option" name="aspects.names[0]" level="50" delta="cue.deltaOne" diff="4"></diff>
+        </li>
+        <li class="scale active"><span><b class="pull-right pad">50</b>
+            <p><i>{{ aspects.texts[aspects.names[1]] | capitalize }}</i></p></span>
+          <diff name="aspects.names[1]" level="50"></diff>
+        </li>
+      </div><a class="btn btn-lg light full-width space point">I Prefer Option 1</a>
+    </div>
+  </div>
+  <div class="col-md-3 col-xs-6">
+    <div ng-if="instructions.partFour" ng-class="{ highlight: !instructions.partFive || instructions.highlightTwo }" class="option right">
+      <div class="panel panel-default">
+        <h3>Option 2</h3>
+        <li class="scale active space"><span><b class="pull-right pad">50</b>
+            <p><i>{{ aspects.texts[aspects.names[0]] | capitalize }}</i></p></span>
+          <diff option="one" animate="cue.option" name="aspects.names[0]" level="50"></diff>
+        </li>
+        <li class="scale active"><span><b class="pull-right pad">{{ 50 + cue.deltaTwo }}</b>
+            <p><i>{{ aspects.texts[aspects.names[1]] | capitalize }}</i></p></span>
+          <diff option="one" animate="cue.option" name="aspects.names[1]" level="50" delta="cue.deltaTwo" diff="4"></diff>
+        </li>
+      </div><a class="btn btn-lg light full-width space point">I Prefer Option 2</a>
+    </div>
+  </div>
+</div>
