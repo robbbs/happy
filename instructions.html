@@ -1,6 +1,6 @@
 
 <div class="pointer"><i class="glyphicon glyphicon-hand-up"></i></div>
-<div ng-hide="instructions.highlightOne" class="dark-overlay"></div>
+<div ng-hide="instructions.highlightOne &amp;&amp; !instructions.done" class="dark-overlay"></div>
 <div class="row topbar">
   <div class="col-md-6 col-md-offset-3">
     <div class="logo">
@@ -13,7 +13,7 @@
 </div>
 <div class="row instructions space">
   <div class="col-md-3"></div>
-  <div class="col-md-6">
+  <div ng-hide="instructions.done" class="col-md-6">
     <div ng-if="instructions.partOne" ng-class="{ highlight: !instructions.partTwo }" class="panel panel-default highlight">
       <div class="panel-body"><a ng-click="instructions.next()" class="btn btn-primary pull-right">Skip Instructions</a>Suppose one of the aspects you rated increased or decreased. That's Option 1.</div>
     </div>
@@ -22,6 +22,22 @@
     </div>
     <div ng-if="instructions.partFive" class="panel panel-default highlight">
       <div class="panel-body"><a ng-click="instructions.next()" class="btn btn-primary pull-right">Skip Instructions</a>Which would you choose?</div>
+    </div>
+  </div>
+  <div ng-show="instructions.done" class="col-md-3">
+    <div class="panel panel-default highlight">
+      <div class="panel-body">
+        <p>I would like to see the instructions again before starting</p>
+        <p class="align-right"><a ng-click="instructions.run()" class="btn btn-default">Repeat the Instructions</a></p>
+      </div>
+    </div>
+  </div>
+  <div ng-show="instructions.done" class="col-md-3">
+    <div class="panel panel-default highlight">
+      <div class="panel-body">
+        <p>I understand the instructions and I am ready to start the survey</p>
+        <p class="align-right"><a ng-click="instructions.next()" class="btn btn-primary">Continue to Survey</a></p>
+      </div>
     </div>
   </div>
 </div>
