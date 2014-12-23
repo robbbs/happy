@@ -14,14 +14,29 @@
 <div class="row instructions space">
   <div class="col-md-3"></div>
   <div ng-hide="instructions.done" class="col-md-6">
+    <div ng-if="instructions.partZero" ng-class="{ highlight: !instructions.partTwo }" class="panel panel-default highlight">
+      <div class="panel-body">
+        <p>Suppose some of the aspects you rated can be increased or decreased.</p>
+        <p class="pull-right"><a ng-click="instructions.next()" class="btn btn-primary pull-right">Skip Instructions</a></p>
+      </div>
+    </div>
     <div ng-if="instructions.partOne" ng-class="{ highlight: !instructions.partTwo }" class="panel panel-default highlight">
-      <div class="panel-body"><a ng-click="instructions.next()" class="btn btn-primary pull-right">Skip Instructions</a>Suppose one of the aspects you rated increased or decreased. That's Option 1.</div>
+      <div class="panel-body">
+        <p>Option 1: one aspect (e.g. {{ aspects.names[0] }}) increases, while the others stay the same.   </p>
+        <p class="pull-right"><a ng-click="instructions.next()" class="btn btn-primary pull-right">Skip Instructions</a></p>
+      </div>
     </div>
     <div ng-if="instructions.partThree" ng-class="{ highlight: !instructions.partFour }" class="panel panel-default highlight">
-      <div class="panel-body"><a ng-click="instructions.next()" class="btn btn-primary pull-right">Skip Instructions</a>Option 2 changes another aspect you rated. </div>
+      <div class="panel-body">
+        <p>Option 2: a different aspect (e.g. {{ aspects.names[1] }}) increases, while the others stay the same.</p>
+        <p class="pull-right"><a ng-click="instructions.next()" class="btn btn-primary pull-right">Skip Instructions</a></p>
+      </div>
     </div>
     <div ng-if="instructions.partFive" class="panel panel-default highlight">
-      <div class="panel-body"><a ng-click="instructions.next()" class="btn btn-primary pull-right">Skip Instructions</a>Which would you choose?</div>
+      <div class="panel-body">
+        <p>Which would you choose?</p>
+        <p class="pull-right"><a ng-click="instructions.next()" class="btn btn-primary pull-right">Skip Instructions</a></p>
+      </div>
     </div>
   </div>
   <div ng-show="instructions.done" class="col-md-3">
