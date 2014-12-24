@@ -71,6 +71,10 @@
             <p><i>{{ aspects.texts[aspects.names[1]] | capitalize }}</i></p></span>
           <diff name="aspects.names[1]" level="50"></diff>
         </li>
+        <li ng-repeat="(i, aspect) in aspects.names" ng-show="i !== 0 &amp;&amp; i !== 1" class="scale"><span><b class="pull-right pad">50</b>
+            <p><i>{{ aspects.texts[aspect] | capitalize }}</i></p></span>
+          <diff name="aspect" level="50"></diff>
+        </li>
       </div><a class="btn btn-lg light full-width space point">I Prefer Option 1</a>
     </div>
   </div>
@@ -85,6 +89,10 @@
         <li class="scale active"><span><b class="pull-right pad">{{ 50 + cue.deltaTwo }}</b>
             <p><i>{{ aspects.texts[aspects.names[1]] | capitalize }}</i></p></span>
           <diff option="one" animate="cue.option" name="aspects.names[1]" level="50" delta="cue.deltaTwo" diff="4"></diff>
+        </li>
+        <li ng-repeat="(i, aspect) in aspects.names" ng-show="i !== 0 &amp;&amp; i !== 1" class="scale"><span><b class="pull-right pad">50</b>
+            <p><i>{{ aspects.texts[aspect] | capitalize }}</i></p></span>
+          <diff name="aspect" level="50"></diff>
         </li>
       </div><a class="btn btn-lg light full-width space point">I Prefer Option 2</a>
     </div>
