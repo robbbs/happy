@@ -9,7 +9,14 @@
     <link rel="stylesheet" href="styles/app.css">
     <link rel="stylesheet" href="//brick.a.ssl.fastly.net/Karla:400,400i,700,700i">
   </head>
-  <body ng-controller="AppCtrl">
+  <body ng-controller="AppCtrl"><!--[if IE]>
+    <div class="black-overlay"></div>
+    <div class="browser">
+      <div class="panel-body">
+        <h2>You are using an unsupported browser</h2>
+        <p>To view this website, please update your web browser at <a href="http://whatbrowser.org">http://whatbrowser.org</a></p>
+      </div>
+    </div><![endif]-->
     <div ng-view class="container-fluid"></div>
     <footer class="small right">© Ori Heffetz, Dan Benjamin, Miles Kimball</footer>
     <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.4.8/d3.min.js"></script>

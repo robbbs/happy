@@ -5,18 +5,22 @@
       <h1 class="pull-left">
         <div class="pull-left">What is a Good Life?</div>
         <div class="small pull-left">&nbspβ</div>
-      </h1><span ng-show="user.info.password.email" class="pull-right"><a ng-click="user.unauth()" class="btn dark pull-right">Sign Out</a>
+      </h1><span ng-show="user.info.provider === &quot;anonymous&quot;" class="pull-right"><a ng-click="user.unauth()" class="btn dark pull-right margin-right">Sign Out</a>
+        <div class="light-font email pull-right">Anonymous</div></span><span ng-show="user.info.password.email" class="pull-right"><a ng-click="user.unauth()" class="btn dark pull-right margin-right">Sign Out</a><a href="#admin" ng-show="isAdmin" class="btn light pull-right margin-right">Data Dashboard</a>
         <div class="light-font email pull-right">{{ user.info.password.email }}</div></span>
     </div>
   </div>
 </div>
 <div class="row">
   <div class="col-md-4 col-md-offset-4">
-    <div ng-hide="user.info.password.email" class="panel welcome">
+    <div ng-hide="user.info" class="panel welcome">
       <div ng-include="landing.url" class="panel-body"></div>
     </div>
-    <div ng-show="user.info.password.email" class="panel welcome">
+    <div ng-show="user.info.password.email || terms.agreed" class="panel welcome">
       <div ng-include="&quot;modules.html&quot;" class="panel-body"></div>
+    </div>
+    <div ng-show="user.info.provider === &quot;anonymous&quot; &amp;&amp; !terms.agreed" class="panel welcome">
+      <div ng-include="&quot;terms.html&quot;" class="panel-body"></div>
     </div>
   </div>
   <div earth="earth" class="splash">

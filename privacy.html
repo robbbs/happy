@@ -6,7 +6,8 @@
         <div class="small pull-right">β </div>What is a Good Life?
       </h1>
     </div>
-    <ul class="list-group menu"><a class="list-group-item title">{{ user.info.password.email || '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' }}</a><a ng-click="settings.devmode = !settings.devmode" class="list-group-item"> Dev Mode <i ng-show="settings.devmode" class="glyphicon glyphicon-ok"></i></a><a ng-show="user.info.password.email" ng-click="user.unauth()" class="list-group-item">Sign Out</a></ul>
+    <ul ng-show="user.info.provider === &quot;anonymous&quot;" class="list-group menu"><a class="list-group-item title">Anonymous</a><a ng-click="user.unauth()" class="list-group-item">Sign Out</a></ul>
+    <ul ng-show="user.info.password.email" class="list-group menu"><a class="list-group-item title">{{ user.info.password.email }}</a><a ng-click="settings.devmode = !settings.devmode" ng-show="isAdmin" class="list-group-item"> Dev Mode <i ng-show="settings.devmode" class="glyphicon glyphicon-ok"></i></a><a ng-click="user.unauth()" class="list-group-item">Sign Out</a></ul>
   </div>
 </div>
 <div class="row space"></div>

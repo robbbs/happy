@@ -1,0 +1,54 @@
+
+<div ng-show="!isAdmin" class="col-md-4 col-md-offset-4">
+  <div class="panel welcome">
+    <div class="panel-body">
+      <h3>Dashboard</h3>
+      <p><i>To access this page, please log in as an administrator</i></p>
+      <div class="space">
+        <div ng-show="login.wrong === 'INVALID_EMAIL'" class="alert alert-danger">Please enter a valid email address</div>
+        <div ng-show="login.wrong === 'INVALID_PASSWORD' || login.wrong === 'INVALID_USER'" class="alert alert-danger">Your username or password is incorrect</div>
+        <div ng-show="login.wrong === 'in'" class="alert alert-info">Logging you in...</div>
+        <div ng-show="login.alert" class="alert alert-danger">{{ login.alert }}</div>
+        <div ng-show="login.message" class="alert alert-info">{{ login.message }}</div>
+        <form ng-submit="login.submit()">
+          <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="text" name="email" placeholder="Enter your email" ng-model="login.email" ng-class="{ invalid: login.wrong === 'INVALID_EMAIL' }" class="form-control"/>
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" name="password" placeholder="{{ login.placeholder.password }}" ng-model="login.password" ng-class="{ invalid: login.wrong === 'INVALID_PASSWORD' }" class="form-control"/>
+          </div>
+          <div class="auth clearfix">
+            <input type="submit" value="Login" class="btn dark pull-right"/><a ng-click="login.reset()" class="btn light pull-right margin-right">Forgot my password</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div ng-show="isAdmin" class="col-md-8 col-md-offset-2">
+  <div class="row space">
+    <div class="col-xs-12">
+      <h1>Data Dashboard</h1><a href="/"><i class="glyphicon glyphicon-arrow-left"></i> What is a Good Life surveys</a>
+    </div>
+  </div>
+  <div class="row admin-menu space">
+    <div class="col-xs-12">
+      <li><a ng-click="data.view = data.threetwo" ng-class="{ &quot;btn-primary&quot;: data.view === data.threetwo }" class="btn btn-default">Value Weighting</a></li>
+      <li><a ng-click="data.view = data.overlap" ng-class="{ &quot;btn-primary&quot;: data.view === data.overlap }" class="btn btn-default">Overlap</a></li>
+      <li><a ng-click="data.view = data.fineoverlap" ng-class="{ &quot;btn-primary&quot;: data.view === data.fineoverlap }" class="btn btn-default">Fine Overlap</a></li>
+    </div>
+  </div>
+  <div ng-show="data.view" class="row admin-menu space">
+    <div class="col-xs-12">
+      <li class="btn-group"><a ng-click="data.type = &quot;JSON&quot;" ng-class="{ &quot;btn-success&quot;: data.type === &quot;JSON&quot; }" class="btn btn-default">JSON</a><a class="btn btn-default"><i class="glyphicon glyphicon-download-alt"></i></a></li>
+      <li class="btn-group"><a ng-click="data.type = &quot;CSV&quot;" ng-class="{ &quot;btn-success&quot;: data.type === &quot;CSV&quot; }" class="btn btn-default">CSV</a><a class="btn btn-default"><i class="glyphicon glyphicon-download-alt"></i></a></li>
+    </div>
+  </div>
+  <div ng-show="data.view" class="row space">
+    <div class="col-xs-12">
+      <pre>{{ data.view | JSONify }}</pre>
+    </div>
+  </div>
+</div>

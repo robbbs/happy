@@ -1,7 +1,9 @@
 
 <div ng-show="login.wrong === 'INVALID_EMAIL'" class="alert alert-danger">Please enter a valid email address</div>
 <div ng-show="login.wrong === 'INVALID_PASSWORD' || login.wrong === 'INVALID_USER'" class="alert alert-danger">Your username or password is incorrect</div>
-<div ng-show="signup.wrong === 'in'" class="alert alert-info">Logging you in...</div>
+<div ng-show="login.wrong === 'in'" class="alert alert-info">Logging you in...</div>
+<div ng-show="login.alert" class="alert alert-danger">{{ login.alert }}</div>
+<div ng-show="login.message" class="alert alert-info">{{ login.message }}</div>
 <form ng-submit="login.submit()">
   <div class="form-group">
     <label for="email">Email address</label>
@@ -12,6 +14,6 @@
     <input type="password" name="password" placeholder="{{ login.placeholder.password }}" ng-model="login.password" ng-class="{ invalid: login.wrong === 'INVALID_PASSWORD' }" class="form-control"/>
   </div>
   <div class="auth clearfix">
-    <input type="submit" value="Login" class="btn dark pull-right"/>
+    <input type="submit" value="Login" class="btn dark pull-right"/><a ng-click="login.reset()" class="btn light pull-right margin-right">Forgot my password</a>
   </div>
 </form>
