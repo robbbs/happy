@@ -1,0 +1,92 @@
+
+<div class="black-back"></div>
+<div class="row instructions space">
+  <div class="col-md-3"></div>
+  <div class="col-md-6">
+    <div class="row margin-zero"> 
+      <div ng-if="!instructions.choice" class="panel panel-default highlight">
+        <div class="panel-heading"><a ng-click="instructions.understood()" class="btn btn-default pull-right">Skip</a>
+          <h2><b>Instructions</b></h2>
+        </div>
+        <div class="panel-body">
+          <p ng-if="instructions.step === 0"><i>In the following section you will asked to trade off and choose between various scenarios.</i></p>
+          <p ng-if="instructions.step === 1"><i>Suppose some of the aspects you rated could be increased or decreased.</i></p>
+          <p ng-if="instructions.step === 2"><i>Option 1: one aspect (e.g. {{ aspects.texts[aspects.names[0]] }}) increases, while the others stay the same.</i></p>
+          <p ng-if="instructions.step === 3"><i>Option 2: a different aspect (e.g. {{ aspects.texts[aspects.names[1]] }}) increases, while the others stay the same.</i></p>
+          <p ng-if="instructions.step === 4"><i>Which option do you prefer? Select one of the options by clicking below.</i></p>
+        </div>
+        <div class="panel-bottom clearfix">
+          <stepper steps="[0,1,2,3,4]" parent="instructions" class="pull-left"></stepper>
+          <div class="pull-right"><a ng-click="instructions.prev()" ng-if="instructions.step &gt; 0" class="btn btn-default margin-right">&larr; Go Back</a><a ng-click="instructions.next()" ng-if="instructions.step &lt; 4" class="btn btn-primary">Continue &rarr;</a></div>
+        </div>
+      </div>
+      <div ng-if="instructions.choice" class="panel panel-default highlight">
+        <div class="panel-heading">
+          <h2><b>You chose Option {{ instructions.choice }}</b></h2>
+        </div>
+        <div class="panel-body">
+          <p ng-if="instructions.choice === 1"><i>You prefer a scenario where <b>the rating of {{aspects.texts[aspects.names[0]]}} is increased by 4 </b>in comparison to a scenario where the rating of {{aspects.texts[aspects.names[1]]}} is increased by 4.</i></p>
+          <p ng-if="instructions.choice === 2"><i>You prefer a scenario where <b>the rating of {{aspects.texts[aspects.names[1]]}} is increased by 4 </b>in comparison to a scenario where the rating of {{aspects.texts[aspects.names[0]]}} is increased by 4.</i></p>
+        </div>
+        <div class="panel-bottom clearfix">
+          <div class="pull-left">
+            <p><a ng-click="instructions.repeat()" class="btn btn-default">Explain Again</a></p>
+          </div>
+          <div class="pull-right">
+            <p><a ng-click="instructions.understood()" class="btn btn-primary">Continue to Survey</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row space">
+  <div class="dark-overlay"></div>
+  <div class="col-md-2"></div>
+  <div ng-if="instructions.step &gt; 1" class="col-md-8">
+    <div class="row space white-back">
+      <div class="col-xs-6">
+        <div ng-if="instructions.step &gt; 1" ng-click="instructions.choice = 1" ng-class="{ highlight: instructions.choice !== 2 }" class="option left"><a ng-show="instructions.step === 4" class="btn btn-lg light full-width point">I Prefer Option 1</a>
+          <div class="panel panel-default space">
+            <h3>Option 1</h3>
+            <li class="scale active space"><span><b class="pull-right pad">{{ responses[aspects.names[0]] + cue.deltaOne }}</b>
+                <p><i>{{ aspects.texts[aspects.names[0]] | capitalize }}</i></p></span>
+              <diff option="one" animate="&quot;one&quot;" name="aspects.names[0]" level="responses[aspects.names[0]]" delta="cue.deltaOne" diff="4"></diff>
+            </li>
+            <li class="scale active"><span><b class="pull-right pad">{{ responses[aspects.names[1]] }}</b>
+                <p><i>{{ aspects.texts[aspects.names[1]] | capitalize }}</i></p></span>
+              <diff name="aspects.names[1]" level="responses[aspects.names[1]]"></diff>
+            </li>
+            <li ng-repeat="(i, aspect) in aspects.names" ng-show="i !== 0 &amp;&amp; i !== 1" class="scale"><span><b class="pull-right pad">{{ responses[aspect] }}</b>
+                <p><i>{{ aspects.texts[aspect] | capitalize }}</i></p></span>
+              <diff name="aspect" level="responses[aspect]"></diff>
+            </li>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-6">
+        <div ng-if="instructions.step &gt; 2" ng-click="instructions.choice = 2" ng-class="{ highlight: instructions.choice !== 1 }" class="option right highlight"><a ng-show="instructions.step === 4" class="btn btn-lg light full-width point">I Prefer Option 2</a>
+          <div class="panel panel-default space">
+            <h3>Option 2</h3>
+            <li class="scale active space"><span><b class="pull-right pad">{{ responses[aspects.names[0]] }}</b>
+                <p><i>{{ aspects.texts[aspects.names[0]] | capitalize }}</i></p></span>
+              <diff name="aspects.names[0]" level="responses[aspects.names[0]]"></diff>
+            </li>
+            <li class="scale active"><span><b class="pull-right pad">{{ responses[aspects.names[1]] + cue.deltaTwo }}</b>
+                <p><i>{{ aspects.texts[aspects.names[1]] | capitalize }}</i></p></span>
+              <diff option="one" animate="instructions.animTwo" name="aspects.names[1]" level="responses[aspects.names[1]]" delta="cue.deltaTwo" diff="4"></diff>
+            </li>
+            <li ng-repeat="(i, aspect) in aspects.names" ng-show="i !== 0 &amp;&amp; i !== 1" class="scale"><span><b class="pull-right pad">{{ responses[aspect] }}</b>
+                <p><i>{{ aspects.texts[aspect] | capitalize }}</i></p></span>
+              <diff name="aspect" level="responses[aspect]"></diff>
+            </li>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row space"></div>
+    <div class="row space"></div>
+    <div class="row space"></div>
+    <div class="row space"></div>
+  </div>
+</div>
