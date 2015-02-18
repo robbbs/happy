@@ -1,15 +1,17 @@
 
 <div class="row topbar">
-  <div class="col-md-6 col-md-offset-3">
-    <div class="logo">
-      <h1 class="align-right">
-        <div class="small pull-right">β </div>What is a Good Life?
-      </h1>
-    </div>
-    <div class="nav">
-      <ul ng-show="user.info.provider === &quot;anonymous&quot;" class="list-group menu"><a class="list-group-item title">Anonymous</a><a ng-click="user.unauth()" class="list-group-item">Sign Out</a></ul>
-      <ul ng-show="user.info.password.email" class="list-group menu"><a class="list-group-item title">{{ user.info.password.email }}</a><a ng-click="settings.devmode = !settings.devmode" ng-show="isAdmin" class="list-group-item"> Dev Mode <i ng-show="settings.devmode" class="glyphicon glyphicon-ok"></i></a><a href="/" class="list-group-item">Surveys</a><a ng-click="user.unauth()" class="list-group-item">Sign Out</a></ul>
-      <div class="btn-group pull-right margin-right"><a class="btn btn-default no-pointer">Font Size</a><a ng-click="font.decreaseSize()" class="btn btn-default"><b>-</b></a><a ng-click="font.increaseSize()" class="btn btn-default"><b>+</b></a></div>
+  <div class="col-lg-8 col-lg-offset-2">
+    <div class="flex wrap">
+      <div class="logo">
+        <object data="assets/logo.svg" type="image/svg+xml" className="logo"></object>
+      </div>
+      <div class="flex">
+        <div class="one-line-group"><a class="btn btn-default no-pointer">Font Size</a><a ng-click="font.decreaseSize()" class="btn btn-default"><b>-</b></a><a ng-click="font.increaseSize()" class="btn btn-default"><b>+</b></a></div>
+        <ul ng-show="user.info.provider === &quot;anonymous&quot;" class="list-group menu"><a class="list-group-item title">Anonymous</a><a ng-click="user.unauth()" class="list-group-item">Sign Out</a></ul>
+        <div class="drop"><a class="list-group-item title">{{ user.info.password.email }}</a>
+          <div class="items"><a ng-click="settings.devmode = !settings.devmode" ng-show="isAdmin" class="list-group-item">Dev Mode <i ng-show="settings.devmode" class="glyphicon glyphicon-ok"></i></a><a href="/" class="list-group-item">Surveys</a><a ng-click="user.unauth()" class="list-group-item">Sign Out</a></div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -26,14 +28,14 @@
       </li>
     </ul>
   </div>
-  <div ng-show="!overlap.preamble" class="col-md-6">
+  <div ng-if="!overlap.preamble" class="col-md-6">
     <div class="panel panel-default">
       <div class="panel-body">
         <p class="large">In the questions that will follow, we will ask you to compare options involving changes in different aspects well-being. When an option involves changes in more than one aspect of well-being, these aspects of well-being may be either totally distinct or they may mean similar things. When two aspects of well-being mean similar things, and both change, please consider the change indicated as being a bigger change only to the extent that two aspects of well-being actually do cover different things. </p><a ng-click="hidePreamble()" class="btn btn-primary pull-right space">Continue</a>
       </div>
     </div>
   </div>
-  <div ng-show="choice &amp;&amp; overlap.preamble" class="col-md-6 trade">
+  <div ng-if="choice &amp;&amp; overlap.preamble" class="col-md-6 trade">
     <div class="panel panel-default">
       <div class="panel-body">Each option either increases or decreases the level of one or two of the aspects you rated. Please choose which option you would prefer. </div>
     </div>
@@ -44,7 +46,7 @@
             <h3>Option 1</h3>
             <li ng-repeat="i in [0,1,2]" ng-class="{ active: choice.tradeoff[i] }" class="scale"><span><b class="pull-right pad">{{ i === 0 ? cue.deltaOne + responses[aspects.names[0]] :  responses[aspects.names[i]] | round1 }}</b>
                 <p><i>{{ aspects.texts[aspects.names[i]] | capitalize }}</i></p></span>
-              <diff option="one" animate="cue.option" choice="choice" name="aspects.names[i]" level="responses[aspects.names[i]]" diff="i === 0 ? choice.tradeoff[0] : 0" delta="cue.deltaOne"></diff>
+              <diff animate="animate.one" choice="choice" name="aspects.names[i]" level="responses[aspects.names[i]]" diff="i === 0 ? choice.tradeoff[0] : 0" delta="cue.deltaOne"></diff>
             </li><br/>
           </div><br/><a class="btn btn-lg light full-width">I Prefer Option 1</a>
         </ul>
@@ -53,7 +55,7 @@
             <h3>Option 2</h3>
             <li ng-repeat="i in [0,1,2]" ng-class="{ active: choice.tradeoff[i] }" class="scale"><span><b class="pull-right pad">{{ i > 0 ? responses[aspects.names[i]] + cue.deltaTwo : responses[aspects.names[i]] | round1 }}</b>
                 <p><i>{{ aspects.texts[aspects.names[i]] | capitalize }}</i></p></span>
-              <diff option="two" animate="cue.option" choice="choice" name="aspects.names[i]" level="responses[aspects.names[i]]" diff="i &gt; 0 &amp;&amp; choice.tradeoff[i] ? choice.tradeoff[i] : 0" delta="cue.deltaTwo"></diff>
+              <diff animate="animate.two" choice="choice" name="aspects.names[i]" level="responses[aspects.names[i]]" diff="i &gt; 0 &amp;&amp; choice.tradeoff[i] ? choice.tradeoff[i] : 0" delta="cue.deltaTwo"></diff>
             </li><br/>
           </div><br/><a class="btn btn-lg light full-width">I Prefer Option 2</a>
         </ul>

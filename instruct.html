@@ -9,11 +9,11 @@
           <h2><b>Instructions</b></h2>
         </div>
         <div class="panel-body">
-          <p ng-if="instructions.step === 0"><i>In the following section you will asked to trade off and choose between various scenarios.</i></p>
-          <p ng-if="instructions.step === 1"><i>Suppose some of the aspects you rated could be increased or decreased.</i></p>
-          <p ng-if="instructions.step === 2"><i>Option 1: one aspect (e.g. {{ aspects.texts[aspects.names[0]] }}) increases, while the others stay the same.</i></p>
-          <p ng-if="instructions.step === 3"><i>Option 2: a different aspect (e.g. {{ aspects.texts[aspects.names[1]] }}) increases, while the others stay the same.</i></p>
-          <p ng-if="instructions.step === 4"><i>Which option do you prefer? Select one of the options by clicking below.</i></p>
+          <p ng-if="instructions.step === 0" class="text-appear"><i>In the following section you will asked to trade off and choose between various scenarios.</i></p>
+          <p ng-if="instructions.step === 1" class="text-appear"><i>Suppose some of the aspects you rated could be increased or decreased.</i></p>
+          <p ng-if="instructions.step === 2" class="text-appear"><i>Option 1: one aspect (e.g. {{ aspects.texts[aspects.names[0]] }}) increases, while the others stay the same.</i></p>
+          <p ng-if="instructions.step === 3" class="text-appear"><i>Option 2: a different aspect (e.g. {{ aspects.texts[aspects.names[1]] }}) increases, while the others stay the same.</i></p>
+          <p ng-if="instructions.step === 4" class="text-appear"><i>Which option do you prefer? Select one of the options by clicking below.</i></p>
         </div>
         <div class="panel-bottom clearfix">
           <stepper steps="[0,1,2,3,4]" parent="instructions" class="pull-left"></stepper>
@@ -51,7 +51,7 @@
             <h3>Option 1</h3>
             <li class="scale active space"><span><b class="pull-right pad">{{ responses[aspects.names[0]] + cue.deltaOne }}</b>
                 <p><i>{{ aspects.texts[aspects.names[0]] | capitalize }}</i></p></span>
-              <diff option="one" animate="&quot;one&quot;" name="aspects.names[0]" level="responses[aspects.names[0]]" delta="cue.deltaOne" diff="4"></diff>
+              <diff option="one" animate="instructions.animOne" name="aspects.names[0]" level="responses[aspects.names[0]]" delta="cue.deltaOne" diff="4"></diff>
             </li>
             <li class="scale active"><span><b class="pull-right pad">{{ responses[aspects.names[1]] }}</b>
                 <p><i>{{ aspects.texts[aspects.names[1]] | capitalize }}</i></p></span>

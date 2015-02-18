@@ -1,15 +1,17 @@
 
 <div class="row topbar">
-  <div class="col-md-6 col-md-offset-3">
-    <div class="logo">
-      <h1 class="align-right">
-        <div class="small pull-right">β </div>What is a Good Life?
-      </h1>
-    </div>
-    <div class="nav">
-      <ul ng-show="user.info.provider === &quot;anonymous&quot;" class="list-group menu"><a class="list-group-item title">Anonymous</a><a ng-click="user.unauth()" class="list-group-item">Sign Out</a></ul>
-      <ul ng-show="user.info.password.email" class="list-group menu"><a class="list-group-item title">{{ user.info.password.email }}</a><a ng-click="settings.devmode = !settings.devmode" ng-show="isAdmin" class="list-group-item"> Dev Mode <i ng-show="settings.devmode" class="glyphicon glyphicon-ok"></i></a><a href="/" class="list-group-item">Surveys</a><a ng-click="user.unauth()" class="list-group-item">Sign Out</a></ul>
-      <div class="btn-group pull-right margin-right"><a class="btn btn-default no-pointer">Font Size</a><a ng-click="font.decreaseSize()" class="btn btn-default"><b>-</b></a><a ng-click="font.increaseSize()" class="btn btn-default"><b>+</b></a></div>
+  <div class="col-lg-8 col-lg-offset-2">
+    <div class="flex wrap">
+      <div class="logo">
+        <object data="assets/logo.svg" type="image/svg+xml" className="logo"></object>
+      </div>
+      <div class="flex">
+        <div class="one-line-group"><a class="btn btn-default no-pointer">Font Size</a><a ng-click="font.decreaseSize()" class="btn btn-default"><b>-</b></a><a ng-click="font.increaseSize()" class="btn btn-default"><b>+</b></a></div>
+        <ul ng-show="user.info.provider === &quot;anonymous&quot;" class="list-group menu"><a class="list-group-item title">Anonymous</a><a ng-click="user.unauth()" class="list-group-item">Sign Out</a></ul>
+        <div class="drop"><a class="list-group-item title">{{ user.info.password.email }}</a>
+          <div class="items"><a ng-click="settings.devmode = !settings.devmode" ng-show="isAdmin" class="list-group-item">Dev Mode <i ng-show="settings.devmode" class="glyphicon glyphicon-ok"></i></a><a href="/" class="list-group-item">Surveys</a><a ng-click="user.unauth()" class="list-group-item">Sign Out</a></div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
