@@ -41,8 +41,8 @@
     </div>
     <div class="choices">
       <div class="options clearfix">
-        <ul ng-click="choose(choice.i *  2 + 1)" class="col-xs-6">
-          <div class="option panel panel-default">
+        <ul ng-click="choose(choice.i *  2 + 1)" class="col-xs-6"><a class="btn btn-lg light full-width">I Prefer Option 1</a>
+          <div class="option panel panel-default space">
             <h3>Option 1</h3>
             <li class="scale active"><span><b class="pull-right pad-right">{{ responses[abc.aspects[0]] + cue.deltaOne | round1 }}</b>
                 <p><i>{{ aspects.texts[abc.aspects[0]] | capitalize }}</i></p></span>
@@ -59,11 +59,11 @@
             <li ng-repeat="aspect in aspects.names" ng-hide="abc.aspects[0] === aspect || abc.aspects[1] === aspect || abc.aspects[2] === aspect" class="scale"><span><b class="pull-right pad-right">{{ responses[aspect] }}</b>
                 <p><i>{{ aspects.texts[aspect] | capitalize }}</i></p></span>
               <diff choice="choice" name="aspect" level="responses[aspect]"></diff>
-            </li><br/>
-          </div><br/><a class="btn btn-lg light full-width">I Prefer Option 1</a>
+            </li>
+          </div>
         </ul>
-        <ul ng-click="choose(choice.i *  2 + 2)" class="col-xs-6">
-          <div class="option panel panel-default">
+        <ul ng-click="choose(choice.i *  2 + 2)" class="col-xs-6"><a class="btn btn-lg light full-width">I Prefer Option 2</a>
+          <div class="option panel panel-default space">
             <h3>Option 2</h3>
             <li class="scale active"><span><b class="pull-right pad-right">{{ responses[abc.aspects[0]] | round1 }}</b>
                 <p><i>{{ aspects.texts[abc.aspects[0]] | capitalize }}</i></p></span>
@@ -80,8 +80,8 @@
             <li ng-repeat="aspect in aspects.names" ng-hide="abc.aspects[0] === aspect || abc.aspects[1] === aspect || abc.aspects[2] === aspect" class="scale"><span><b class="pull-right pad-right">{{ responses[aspect] }}</b>
                 <p><i>{{ aspects.texts[aspect] | capitalize }}</i></p></span>
               <diff choice="choice" name="aspect" level="responses[aspect]"></diff>
-            </li><br/>
-          </div><br/><a class="btn btn-lg light full-width">I Prefer Option 2</a>
+            </li>
+          </div>
         </ul>
       </div>
     </div>
