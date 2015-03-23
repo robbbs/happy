@@ -1,0 +1,76 @@
+
+<div class="row topbar">
+  <div class="col-lg-8 col-lg-offset-2">
+    <div class="flex wrap">
+      <div class="logo">
+        <object data="assets/logo.svg" type="image/svg+xml" className="logo"></object>
+      </div>
+      <div class="flex">
+        <div class="one-line-group"><a class="btn btn-default no-pointer">Font Size</a><a ng-click="font.decreaseSize()" class="btn btn-default"><b>-</b></a><a ng-click="font.increaseSize()" class="btn btn-default"><b>+</b></a></div>
+        <ul ng-show="user.info.provider === &quot;anonymous&quot;" class="list-group menu"><a class="list-group-item title">Anonymous</a><a ng-click="user.unauth()" class="list-group-item">Sign Out</a></ul>
+        <div class="drop"><a class="list-group-item title">{{ user.info.password.email }}</a>
+          <div class="items"><a ng-click="settings.devmode = !settings.devmode" ng-show="isAdmin" class="list-group-item">Dev Mode <i ng-show="settings.devmode" class="glyphicon glyphicon-ok"></i></a><a href="/" class="list-group-item">Surveys</a><a ng-click="user.unauth()" class="list-group-item">Sign Out</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row font-reset">
+  <prog complete="completed"></prog>
+</div>
+<div class="row space">
+  <div class="col-md-3"></div>
+  <div ng-if="choice.preamble" class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <p class="large">
+          On each of the following 
+          screens, we will ask you to choose between two different ways in which your life might change. On each screen you will have two options to choose from. In each option, levels of some of the aspects of your life that you have just rated will either increase or decrease.
+        </p><a ng-click="hidePreamble()" class="btn btn-primary pull-right space">Continue</a>
+      </div>
+    </div>
+  </div>
+  <div ng-if="choice &amp;&amp; !choice.preamble" class="col-md-6 trade">
+    <div class="panel panel-default">
+      <div class="panel-body">Each option either increases or decreases the level of one of the aspects you rated. Please choose which option you would prefer. </div>
+    </div>
+    <div class="choices">
+      <div class="options clearfix">
+        <ul ng-click="choose(choice.i *  2 + 1)" class="col-xs-6"><a class="btn btn-lg light full-width">I Prefer Option 1</a>
+          <div class="option panel panel-default space">
+            <h3>Option 1</h3>
+            <li class="scale active"><span><b class="pull-right pad">{{ responses[choice.aspects[0]] + cue.deltaOne | round1 }}</b>
+                <p><i>{{ aspects.texts[choice.aspects[0]] | capitalize }}</i></p></span>
+              <diff animate="animate.one" choice="choice" name="choice.aspects[0]" level="responses[choice.aspects[0]]" diff="choice.tradeoff[0]" delta="cue.deltaOne"></diff>
+            </li>
+            <li class="scale active"><span><b class="pull-right pad">{{ responses[choice.aspects[1]] }}</b>
+                <p><i>{{ aspects.texts[choice.aspects[1]] | capitalize }}</i></p></span>
+              <diff name="choice.aspects[1]" level="responses[choice.aspects[1]]"></diff>
+            </li>
+            <li ng-repeat="aspect in aspects.names" ng-hide="choice.aspects[0] === aspect || choice.aspects[1] === aspect" class="scale"><span><b class="pull-right pad">{{ responses[aspect] }}</b>
+                <p><i>{{ aspects.texts[aspect] | capitalize }}</i></p></span>
+              <bar name="aspect" level="responses[aspect]"></bar>
+            </li>
+          </div>
+        </ul>
+        <ul ng-click="choose(choice.i *  2 + 2)" class="col-xs-6"><a class="btn btn-lg light full-width">I Prefer Option 2</a>
+          <div class="option panel panel-default space">
+            <h3>Option 2</h3>
+            <li class="scale active"><span><b class="pull-right pad">{{ responses[choice.aspects[0]] | round1 }}</b>
+                <p><i>{{ aspects.texts[choice.aspects[0]] | capitalize }}</i></p></span>
+              <diff name="choice.aspects[0]" level="responses[choice.aspects[0]]"></diff>
+            </li>
+            <li class="scale active"><span><b class="pull-right pad">{{ responses[choice.aspects[1]] + cue.deltaTwo }}</b>
+                <p><i>{{ aspects.texts[choice.aspects[1]] | capitalize }}</i></p></span>
+              <diff animate="animate.two" choice="choice" name="choice.aspects[1]" level="responses[choice.aspects[1]]" diff="choice.tradeoff[1]" delta="cue.deltaTwo"></diff>
+            </li>
+            <li ng-repeat="aspect in aspects.names" ng-hide="choice.aspects[0] === aspect || choice.aspects[1] === aspect" class="scale"><span><b class="pull-right pad">{{ responses[aspect] }}</b>
+                <p><i>{{ aspects.texts[aspect] | capitalize }}</i></p></span>
+              <bar name="aspect" level="responses[aspect]"></bar>
+            </li>
+          </div>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

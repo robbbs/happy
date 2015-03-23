@@ -1,0 +1,60 @@
+
+<div class="row topbar">
+  <div class="col-lg-8 col-lg-offset-2">
+    <div class="flex wrap">
+      <div class="logo">
+        <object data="assets/logo.svg" type="image/svg+xml" className="logo"></object>
+      </div>
+      <div class="flex">
+        <div class="one-line-group"><a class="btn btn-default no-pointer">Font Size</a><a ng-click="font.decreaseSize()" class="btn btn-default"><b>-</b></a><a ng-click="font.increaseSize()" class="btn btn-default"><b>+</b></a></div>
+        <ul ng-show="user.info.provider === &quot;anonymous&quot;" class="list-group menu"><a class="list-group-item title">Anonymous</a><a ng-click="user.unauth()" class="list-group-item">Sign Out</a></ul>
+        <div class="drop"><a class="list-group-item title">{{ user.info.password.email }}</a>
+          <div class="items"><a ng-click="settings.devmode = !settings.devmode" ng-show="isAdmin" class="list-group-item">Dev Mode <i ng-show="settings.devmode" class="glyphicon glyphicon-ok"></i></a><a href="/" class="list-group-item">Surveys</a><a ng-click="user.unauth()" class="list-group-item">Sign Out</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row space">
+  <div class="col-md-3"></div>
+  <div class="col-md-6">
+    <div class="row admin-menu space">
+      <li><a ng-click="module.type = &quot;pairwise&quot;" ng-class="{ &quot;btn-primary&quot;: module.type === &quot;pairwise&quot; }" class="btn btn-default">Pairwise</a></li>
+      <li><a ng-click="module.type = &quot;overlap&quot;" ng-class="{ &quot;btn-primary&quot;: module.type === &quot;overlap&quot; }" class="btn btn-default">Overlap</a></li>
+    </div>
+    <div ng-if="module.type === &quot;pairwise&quot;" class="row">
+      <h3>Preamble Text <i class="text-muted">optional</i></h3>
+      <textarea ng-model="specifications.pairwise.preamble" class="form-control"></textarea>
+      <h3>Instructions Text</h3>
+      <textarea ng-model="specifications.pairwise.instructions" class="form-control"></textarea>
+      <h3>Aspects List <i class="text-muted">comma delimit</i></h3>
+      <textarea ng-model="specifications.pairwise.aspects" class="form-control"></textarea>
+      <ul>
+        <li ng-repeat="aspect in specifications.pairwise.aspects.split(&quot;,&quot;)">
+          <h5>{{$index + 1 }}. {{aspect}}</h5>
+        </li>
+      </ul>
+    </div>
+    <div ng-if="module.type === &quot;overlap&quot;" class="row">
+      <h3>Preamble Text <i class="text-muted">optional</i></h3>
+      <textarea ng-model="specifications.overlap.preamble" class="form-control"></textarea>
+      <h3>Instructions Text</h3>
+      <textarea ng-model="specifications.overlap.instructions" class="form-control"></textarea>
+      <h3>Numeraires List <i class="text-muted">comma delimit</i></h3>
+      <textarea ng-model="specifications.overlap.numeraires" class="form-control"></textarea>
+      <ul>
+        <li ng-repeat="aspect in specifications.overlap.numeraires.split(&quot;,&quot;)">
+          <h5>{{$index + 1 }}. {{aspect}}</h5>
+        </li>
+      </ul>
+      <h3>Candidates List <i class="text-muted">comma delimit</i></h3>
+      <textarea ng-model="specifications.overlap.candidates" class="form-control"></textarea>
+      <ul>
+        <li ng-repeat="aspect in specifications.overlap.candidates.split(&quot;,&quot;)">
+          <h5>{{$index + 1 }}. {{aspect}}</h5>
+        </li>
+      </ul>
+    </div>
+    <div class="row"><a class="btn btn-primary pull-right">Configure</a></div>
+  </div>
+</div>

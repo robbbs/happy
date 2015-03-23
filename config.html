@@ -1,0 +1,163 @@
+
+<div class="row topbar">
+  <div class="col-lg-8 col-lg-offset-2">
+    <div class="flex wrap">
+      <div class="logo">
+        <object data="assets/logo.svg" type="image/svg+xml" className="logo"></object>
+      </div>
+      <div class="flex">
+        <div class="one-line-group"><a class="btn btn-default no-pointer">Font Size</a><a ng-click="font.decreaseSize()" class="btn btn-default"><b>-</b></a><a ng-click="font.increaseSize()" class="btn btn-default"><b>+</b></a></div>
+        <ul ng-show="user.info.provider === &quot;anonymous&quot;" class="list-group menu"><a class="list-group-item title">Anonymous</a><a ng-click="user.unauth()" class="list-group-item">Sign Out</a></ul>
+        <div class="drop"><a class="list-group-item title">{{ user.info.password.email }}</a>
+          <div class="items"><a ng-click="settings.devmode = !settings.devmode" ng-show="isAdmin" class="list-group-item">Dev Mode <i ng-show="settings.devmode" class="glyphicon glyphicon-ok"></i></a><a href="/" class="list-group-item">Surveys</a><a ng-click="user.unauth()" class="list-group-item">Sign Out</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row space">
+  <div class="col-md-2"></div>
+  <div class="col-md-8">
+    <div class="row">
+      <h1 class="align-center">Survey configuration</h1>
+      <div class="col-xs-8">
+        <div class="panel panel-default space">
+          <div class="panel-body">
+            <h5>Title</h5>
+            <form class="form-inline"><span>whatisagoodlife.org/#/survey/</span>
+              <input type="text" ng-model="survey.info.title" class="form-control"/>
+            </form>
+            <h5>Author</h5>
+            <form class="form-inline">
+              <input type="text" ng-model="survey.info.author" class="form-control"/>
+            </form>
+          </div>
+        </div>
+        <div class="panel panel-default space">
+          <div class="panel-body">
+            <h3>Aspect buckets</h3>
+            <table class="table">
+              <tbody>
+                <tr ng-repeat="bucket in survey.aspects">
+                  <td>{{ $index | alphabetize | uppercase }}</td>
+                  <td><a ng-click="survey.aspects.splice($index,1)" class="btn btn-warning btn-sm"><i class="glyphicon glyphicon-remove"></i></a></td>
+                  <td>
+                    <table class="table">
+                      <tbody>
+                        <tr ng-repeat="aspect in bucket">
+                          <td>{{ $index + 1 }}.</td>
+                          <td>{{ aspect }}</td>
+                          <td><a ng-click="survey.removeBucket($index)" class="btn btn-warning btn-sm"><i class="glyphicon glyphicon-remove"></i></a></td>
+                        </tr>
+                        <tr>
+                          <td>{{ bucket.length + 1 }}.</td>
+                          <td>
+                            <input type="text" ng-model="nextAspects" on-enter="survey.addAspects($index,nextAspects)" placeholder="New aspect 1, New aspect 2, New aspect 3" comma="comma" class="form-control"/>
+                          </td>
+                          <td><a ng-click="survey.addAspects($index,nextAspects)" class="btn btn-primary btn-sm">Add aspects</a></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td><a ng-click="survey.addBucket()" class="btn btn-default">Add bucket</a></td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div ng-if="survey.aspects[0].length" class="panel panel-default space">
+          <div class="panel-body">
+            <h3>Aspect samples</h3>
+            <p ng-repeat="(alpha, bucket) in survey.aspects" ng-if="bucket.length">Randomly sample
+              <input type="number" ng-model="survey.samples[$index]"/> aspects from bucket {{ alpha | alphabetize | uppercase }}: &lt <span ng-repeat="i in range(1,survey.samples[$index] + 1)">{{ alpha | alphabetize | greekify }}{{ i }},</span>&gt
+            </p>
+          </div>
+        </div>
+        <div class="panel panel-default space">
+          <div class="panel-body">
+            <h3>Tasks</h3>
+            <table class="table">
+              <tbody>
+                <tr ng-repeat="task in survey.tasks">
+                  <td>{{ $index + 1}}.</td>
+                  <td>{{ task.type }}</td>
+                  <td ng-if="task.type !== &quot;preamble&quot;">{{ task.aspects[0] | greekify }}</td>
+                  <td ng-if="task.type !== &quot;preamble&quot;"><span ng-repeat="a in task.aspects.slice(1)">{{ a | greekify }}</span></td>
+                  <td ng-if="task.type === &quot;preamble&quot;" colspan="2">{{ task.text }}</td>
+                  <td><a ng-click="survey.tasks.splice($index,1)" class="btn btn-warning"><i class="glyphicon glyphicon-remove"></i></a></td>
+                </tr>
+                <tr>
+                  <td>Preamble</td>
+                  <td colspan="2">
+                    <textarea ng-model="survey.preamble.text" class="form-control"></textarea>
+                  </td>
+                  <td><a ng-click="survey.addPreamble()" class="btn btn-default">Add preamble</a></td>
+                </tr>
+                <tr ng-if="survey.samples[0] &gt; 0">
+                  <td>Tradeoff:
+                    <select ng-model="survey.newCombo.type" ng-options="t for t in [&quot;pairwise&quot;,&quot;overlap&quot;]"></select>
+                  </td>
+                  <td ng-if="survey.newCombo.type === &quot;pairwise&quot;">Option 1: 
+                    <select ng-model="survey.newCombo.aspects[0]" ng-options="a|greekify for a in allSamples"></select>
+                  </td>
+                  <td ng-if="survey.newCombo.type === &quot;pairwise&quot;">Option 2: 
+                    <select ng-model="survey.newCombo.aspects[1]" ng-options="a|greekify for a in allSamples"></select>
+                  </td>
+                  <td ng-if="survey.newCombo.type === &quot;overlap&quot;">Option 1: 
+                    <select ng-model="survey.newCombo.aspects[0]" ng-options="a|greekify for a in allSamples"></select>
+                  </td>
+                  <td ng-if="survey.newCombo.type === &quot;overlap&quot;">Option 2: <span>
+                      <select ng-model="survey.newCombo.aspects[1]" ng-options="a|greekify for a in allSamples"></select>
+                      <select ng-model="survey.newCombo.aspects[2]" ng-options="a|greekify for a in allSamples"></select></span></td>
+                  <td><a ng-click="survey.addCombo()" class="btn btn-default">Add tradeoff</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="panel panel-default space">
+          <div class="panel-body">
+            <h3>Language</h3>
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td class="align-right">Option 1: </td>
+                  <td>
+                    <input type="text" ng-model="survey.language.option.one"/>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="align-right">Option 2: </td>
+                  <td>
+                    <input type="text" ng-model="survey.language.option.two"/>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="align-right">I Prefer Option 1: </td>
+                  <td>
+                    <input type="text" ng-model="survey.language.prefer.one"/>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="align-right">I Prefer Option 2: </td>
+                  <td>
+                    <input type="text" ng-model="survey.language.prefer.two"/>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-4">
+        <pre class="space">{{ configuration | JSONify }}</pre><a ng-if="survey.info.title &amp;&amp; survey.tasks.length &amp;&amp; survey.samples[0] &gt; 0" class="btn btn-primary pull-right space">Configure</a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row space"></div>
+<div class="row space"></div>
